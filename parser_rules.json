@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 2,
+  "version": "2.0.6",
+  "updatedAt": "2026-09-25",
+  "canaryCases": [
+    {
+      "platform": "bilibili",
+      "step": "view",
+      "fixture": "{\"code\": 0, \"data\": {\"bvid\": \"BV1xx411c7mD\", \"aid\": 123456, \"cid\": 654321, \"title\": \"B站canary样例标题\", \"desc\": \"canary描述\", \"pic\": \"https://i0.hdslb.com/bfs/canary.jpg\", \"owner\": {\"name\": \"canary作者\"}}}",
+      "inputURL": "https://www.bilibili.com/video/BV1xx411c7mD",
+      "expectTitleContains": "canary",
+      "expectFieldsNonEmpty": [
+        "aid",
+        "cid"
+      ]
+    },
+    {
+      "platform": "bilibili",
+      "step": "playurl",
+      "fixture": "{\"code\": 0, \"data\": {\"durl\": [{\"url\": \"https://upos-sz-mirror08c.bilivideo.com/canary.mp4\", \"backup_url\": [\"https://upos-sz-mirrorcoso1.bilivideo.com/canary-bk.mp4\"]}]}}",
+      "inputURL": "https://www.bilibili.com/video/BV1xx411c7mD",
+      "expectFieldsNonEmpty": [
+        "videoURL"
+      ],
+      "expectVideoURLHostSuffix": "bilivideo.com"
+    },
+    {
+      "platform": "xiaohongshu",
+      "step": "page",
+      "fixture": "<html><head><title>canary</title></head><body><script>window.__INITIAL_STATE__={\"note\":{\"type\":\"video\",\"title\":\"小红书canary样例笔记\",\"desc\":\"canary描述\",\"video\":{\"media\":{\"stream\":{\"h264\":[{\"masterUrl\":\"https://sns-video-hw.xhscdn.com/canary.mp4\"}]}}},\"imageList\":[{\"urlDefault\":\"https://sns-img-hw.xhscdn.com/frame1.jpg\"}]}};</script></body></html>",
+      "inputURL": "https://www.xiaohongshu.com/explore/canarynote",
+      "expectTitleContains": "canary",
+      "expectFieldsNonEmpty": [
+        "videoURL"
+      ],
+      "expectVideoURLHostSuffix": "xhscdn.com"
+    },
+    {
+      "platform": "mgtv",
+      "step": "discover",
+      "fixture": "<html><body><a href='/b/345064/20132162.html'>第1集</a><a href='/b/345064/20132163.html'>第2集</a></body></html>",
+      "inputURL": "https://www.mgtv.com/topic/abc123.html",
+      "expectFieldsNonEmpty": [
+        "id"
+      ]
+    },
+    {
+      "platform": "mgtv",
+      "step": "info",
+      "fixture": "{\"code\":\"200\",\"data\":{\"info\":{\"title\":\"芒果canary样例标题\",\"desc\":\"canary描述\",\"thumb\":\"https://pc1.img.mgtv.com/canary.jpg\",\"duration\":\"1250\"},\"atc\":{\"pm2\":\"PM2CANARYTOKEN\"}}}",
+      "inputURL": "https://www.mgtv.com/b/345064/20132162.html",
+      "expectTitleContains": "canary",
+      "expectFieldsNonEmpty": [
+        "pm2",
+        "duration"
+      ]
+    },
+    {
+      "platform": "mgtv",
+      "step": "source",
+      "fixture": "{\"code\":\"200\",\"data\":{\"stream_domain\":[\"https://pcweb.app.mgtv.com\"],\"stream\":[{\"url\":\"/canary_720.m3u8\",\"filebitrate\":\"1200\",\"name\":\"720P\"},{\"url\":\"/canary_1080.m3u8\",\"filebitrate\":\"2400\",\"name\":\"1080P\"}]}}",
+      "inputURL": "https://www.mgtv.com/b/345064/20132162.html",
+      "expectFieldsNonEmpty": [
+        "m3u8ApiURL"
+      ]
+    },
+    {
+      "platform": "mgtv",
+      "step": "atcl",
+      "fixture": "{\"code\":\"200\",\"data\":{\"info\":\"https://pcweb.app.mgtv.com/canary_1080.m3u8\"}}",
+      "inputURL": "https://www.mgtv.com/b/345064/20132162.html",
+      "expectFieldsNonEmpty": [
+        "videoURL"
+      ]
+    },
+    {
+      "platform": "sohu",
+      "step": "page",
+      "fixture": "<html><script>var vid=\"9861348\";</script><body>canary</body></html>",
+      "inputURL": "https://tv.sohu.com/v/9861348.shtml",
+      "expectFieldsNonEmpty": [
+        "vid"
+      ]
+    },
+    {
+      "platform": "sohu",
+      "step": "meta",
+      "fixture": "{\"play\":1,\"fee\":0,\"tvfee\":0,\"allot\":\"data.v2.sohu.example\",\"title\":\"搜狐canary样例\",\"data\":{\"tvName\":\"搜狐canary样例标题\",\"coverImg\":\"https://img.sohu.example/canary.jpg\",\"totalDuration\":6120,\"totalBlocks\":2,\"clipsURL\":[\"/mp4/c1.mp4\",\"/mp4/c2.mp4\"],\"mp4PlayUrl\":[],\"su\":[\"s1abc\",\"s2def\"]}}",
+      "inputURL": "https://tv.sohu.com/v/9861348.shtml",
+      "expectTitleContains": "canary"
+    },
+    {
+      "platform": "douyin",
+      "step": "detail",
+      "fixture": "<html><body><script>window._ROUTER_DATA={\"loaderData\":{\"note_(id)/page\":{\"videoInfoRes\":{\"item_list\":[{\"aweme_id\":\"7644880166711250176\",\"desc\":\"douyin canary 图集标题\",\"author\":{\"nickname\":\"canary\"},\"images\":[{\"url_list\":[\"https://p3-sign.douyinpic.com/canary-1.webp\"]},{\"url_list\":[\"https://p3-sign.douyinpic.com/canary-2.webp\"]},{\"url_list\":[\"https://p3-sign.douyinpic.com/canary-3.webp\"]}],\"video\":{\"play_addr\":{\"uri\":\"canaryuri\",\"url_list\":[\"https://aweme.snssdk.com/aweme/v1/playwm/?video_id=canaryuri\"]},\"cover\":{\"url_list\":[\"https://p3-sign.douyinpic.com/canary-cover.webp\"]}}}]}}}}</script></body></html>",
+      "inputURL": "https://www.douyin.com/note/7644880166711250176",
+      "expectTitleContains": "canary",
+      "expectImageMinCount": 3
+    },
+    {
+      "platform": "douyin",
+      "step": "detail",
+      "fixture": "<html><body><script>window._ROUTER_DATA={\"loaderData\":{\"video_(id)/page\":{\"videoInfoRes\":{\"item_list\":[{\"aweme_id\":\"7673786690254736681\",\"desc\":\"douyin canary 视频标题\",\"video\":{\"play_addr\":{\"uri\":\"canaryuri\",\"url_list\":[\"https://aweme.snssdk.com/aweme/v1/playwm/?video_id=canaryuri\"]},\"cover\":{\"url_list\":[\"https://p26-sign.douyinpic.com/canary-cover.webp\"]}}}]}}}}</script></body></html>",
+      "inputURL": "https://www.douyin.com/video/7673786690254736681",
+      "expectTitleContains": "canary",
+      "expectFieldsNonEmpty": [
+        "videoURL"
+      ],
+      "expectVideoURLHostSuffix": "iesdouyin.com"
+    },
+    {
+      "platform": "ted",
+      "step": "page",
+      "fixture": "<!doctype html><html><head>\n<meta property=\"og:url\" content=\"https://www.ted.com/talks/canary_test_talk\">\n<meta property=\"og:title\" content=\"Why we blew up four dams — and saved a river\">\n<meta property=\"og:description\" content=\"For thousands of years, the Klamath River was home to one of the continent&#39;s great salmon runs.\">\n<meta property=\"og:image\" content=\"https://pi.tedcdn.com/r/talkstar-assets.s3.amazonaws.com/production/talks/talk_189436/AmyBowersCordalis_2026-embed.jpg?w=1050&amp;quality=82\">\n<meta property=\"og:video:duration\" content=\"780\">\n</head><body><div data-next-head></div>\n<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"videoData\":{\"id\":\"talk_189436\",\"slug\":\"canary_test_talk\",\"duration\":780,\"hlsUrl\":\"https://hls.ted.com/project_masters/12039/manifest.m3u8?intro_master_id=9294\"}}}}</script>\n</body></html>",
+      "inputURL": "https://www.ted.com/talks/amy_bowers_cordalis_why_we_blew_up_four_dams_and_saved_a_river",
+      "expectTitleContains": "blew up four dams",
+      "expectFieldsNonEmpty": [
+        "description",
+        "coverURL"
+      ],
+      "expectVideoURLHostSuffix": "hls.ted.com"
+    }
+  ],
+  "changelog": "抖音插件登录墙/风控早退：note 图集被下发登录墙后 detail API 不再被调用，脚本 8s 内检测登录弹窗/验证组件并主动上报 rateLimited（约 2s 内明确报错，替代 25s webview 超时）（2026-09-12）；登录墙(扫码/验证码/密码登录/登录后免费)现上报 needsLogin，引擎抛 PlatformLoginRequiredError 并提示需登录后查看，与限流区分（2026-09-12）；抖音改回分享页 HTTP（warmup ×2 拿 ttwid → 第三次请求取 SSR _ROUTER_DATA.videoInfoRes.item_list）；ttwid 是否下发有随机性（实测单次约 2/3 命中），故前置两次 warmup 提高首次成功率至实测 6/6，恢复图集与视频解析；此前 webview 步打的是主站 SPA（无 SSR、detail 接口不触发），故图集失效——该步已删除。图集: images[].url_list→imageURLs 并清空 playwm 占位视频；视频: play_addr.uri→1080p 无水印直链（2026-09-12）",
+  "platforms": [
+    {
+      "id": "bilibili",
+      "hosts": [
+        "bilibili.com",
+        "b23.tv"
+      ],
+      "idPattern": "BV[0-9a-zA-Z]{10}",
+      "steps": [
+        {
+          "id": "view",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://api.bilibili.com/x/web-interface/view?bvid={id}",
+            "headers": {
+              "Referer": "https://www.bilibili.com/"
+            }
+          },
+          "script": "function extract(input) {\n    var o = JSON.parse(JSON.parse(input).text);\n    if (o.code !== 0) { throw new Error(\"view API code=\" + o.code + \" \" + (o.message || \"\")); }\n    var d = o.data || {};\n    return JSON.stringify({\n        title:       d.title || \"\",\n        description: d.desc || \"\",\n        coverURL:    d.pic || \"\",\n        duration:    d.duration || 0,\n        aid:         String(d.aid || \"\"),\n        cid:         String(d.cid || \"\"),\n        bvid:        d.bvid || \"\",\n        author:      (d.owner && d.owner.name) || \"\"\n    });\n}"
+        },
+        {
+          "id": "playurl",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://api.bilibili.com/x/player/playurl?avid={aid}&cid={cid}&qn=64&otype=json",
+            "headers": {
+              "Referer": "https://www.bilibili.com/"
+            }
+          },
+          "script": "function extract(input) {\n    var o = JSON.parse(JSON.parse(input).text);\n    if (o.code !== 0) { throw new Error(\"playurl API code=\" + o.code + \" \" + (o.message || \"\")); }\n    var d = o.data || {};\n    var url = \"\";\n    var durl = d.durl || [];\n    if (durl.length && durl[0].url) {\n        url = durl[0].url;                      // 首选：音画合一的完整文件\n    } else if (d.dash && d.dash.video && d.dash.video.length) {\n        for (var i = 0; i < d.dash.video.length; i++) {\n            var v = d.dash.video[i];\n            if (v.baseUrl) { url = v.baseUrl; break; }\n            if (v.base_url) { url = v.base_url; break; }\n        }\n    }\n    if (!url) { throw new Error(\"接口没给播放地址\"); }\n    return JSON.stringify({ videoURL: url });\n}"
+        }
+      ],
+      "timeout": 20,
+      "fallbackToLegacy": false,
+      "displayName": "B站",
+      "httpPolicy": {
+        "refererMode": "source"
+      }
+    },
+    {
+      "id": "kuaishou",
+      "hosts": [
+        "kuaishou.com",
+        "gifshow.com"
+      ],
+      "idPattern": "/short-video/([^/?#]+)",
+      "timeout": 25,
+      "fallbackToLegacy": false,
+      "steps": [
+        {
+          "id": "detail",
+          "fetch": {
+            "method": "webview",
+            "urlTemplate": "{url}"
+          },
+          "script": "(function() {\n    // 快手解析页面脚本（platformsV2 / fetch.method=webview）。\n    // 职责：拦截 GraphQL 响应（或从 __APOLLO_STATE__ / DOM 兜底）拿 photo 对象，\n    // 在页面内完成字段抽取（对标 Swift 旧链路 parseKuaishouPhotoJSON），\n    // 通过固定桥 pluginResult 回传字段字典，pluginLog 回传诊断日志。\n    // 无占位符（占位符红线事故 2026-08-11 的规避：热更脚本里不允许出现需 Swift 替换的标记）。\n\n    if (window.__ksPluginInjected) return;\n    window.__ksPluginInjected = true;\n\n    // 诊断日志限流：页面请求很吵，总量封顶防刷屏\n    var logCount = 0;\n    function postLog(msg) {\n        if (logCount >= 80) return;\n        logCount++;\n        try { window.webkit.messageHandlers.pluginLog.postMessage(String(msg)); } catch (e) {}\n    }\n\n    // 版本标记 + 页面真实地址（排查 pathname 不含 short-video 导致全树兜底失效的情况）\n    try { postLog('v1.3.8 url=' + (window.location.href || '').slice(0, 120) + ' pageId=' + (photoIdFromLocation() || 'null')); } catch (e) {}\n\n    // 每个被拦截响应的顶层键名（限前 12 条）：看清页面到底在哪些响应里拿数据\n    var inspectCount = 0;\n    function inspect(d, url) {\n        scan(d);\n        var u = String(url || '');\n        // once（分享数据）接口深挖：顶层只有 {result}，直接看整体结构\n        if (u.indexOf('/rest/zt/share/w/tp/once') !== -1 && d && typeof d === 'object') {\n            postLog('once body=' + JSON.stringify(d).slice(0, 300));\n        }\n        // brilliantData（发现页/首页流）深挖：找目标视频的数据结构\n        if (d && d.data && d.data.brilliantData && typeof d.data.brilliantData === 'object') {\n            postLog('brilliant body=' + JSON.stringify(d.data.brilliantData).slice(0, 300));\n        }\n        if (inspectCount < 12 && d && typeof d === 'object') {\n            inspectCount++;\n            var ks;\n            if (d.data && typeof d.data === 'object') {\n                ks = 'data{' + Object.keys(d.data).join(',').slice(0, 110) + '}';\n            } else {\n                ks = '{' + Object.keys(d).join(',').slice(0, 110) + '}';\n            }\n            postLog('RESP ' + u.replace(/^https?:\\/\\//, '').slice(0, 55) + ' -> ' + ks);\n        }\n    }\n    function postResult(obj) {\n        try { window.webkit.messageHandlers.pluginResult.postMessage(JSON.stringify(obj)); } catch (e) {}\n    }\n\n    // ---- 字段抽取（与旧 Swift 链路同源，字段清单来自规则包 kuaishou 段） ----\n    var TITLE_FIELDS = ['caption', 'originCaption', 'title', 'name'];\n    var DESC_FIELDS = ['caption', 'originCaption', 'description', 'desc', 'content'];\n    var VIDEO_FIELDS = ['srcNoMark', 'photoUrl', 'mainMvUrl', 'mainMvUrls', 'playUrl', 'videoUrl', 'mvUrl', 'mvPlayUrl'];\n    var COVER_FIELDS = ['coverUrl', 'coverUrls'];\n    var ATLAS_PATHS = ['ext_params.atlas.list', 'atlas.list'];\n    var ATLAS_PREFIX = 'https://tx2.a.yximgs.com/';\n    var MAX_IMAGES = 50;\n\n    // 兼容 字符串 / [String] 首元素 / [{url}|{urlDefault}] 首元素\n    function firstField(dict, keys) {\n        if (!dict) return '';\n        for (var i = 0; i < keys.length; i++) {\n            var v = dict[keys[i]];\n            if (typeof v === 'string' && v) return v;\n            if (Object.prototype.toString.call(v) === '[object Array]') {\n                for (var j = 0; j < v.length; j++) {\n                    var item = v[j];\n                    if (typeof item === 'string' && item) return item;\n                    if (item && typeof item === 'object') {\n                        var u = item.url || item.urlDefault;\n                        if (typeof u === 'string' && u) return u;\n                    }\n                }\n            }\n        }\n        return '';\n    }\n\n    function valueAtPath(root, path) {\n        var parts = path.split('.');\n        var node = root;\n        for (var i = 0; i < parts.length; i++) {\n            if (!node || typeof node !== 'object') return null;\n            node = node[parts[i]];\n        }\n        return node;\n    }\n\n    // 图集：atlas.list 末端是相对路径数组（或 [{url}]），拼 atlasPrefix\n    function atlasImages(dict) {\n        var out = [];\n        for (var i = 0; i < ATLAS_PATHS.length; i++) {\n            var node = valueAtPath(dict, ATLAS_PATHS[i]);\n            if (Object.prototype.toString.call(node) === '[object Array]') {\n                for (var j = 0; j < node.length; j++) {\n                    var item = node[j];\n                    var rel = (item && typeof item === 'object') ? (item.url || '') : item;\n                    if (typeof rel === 'string' && rel) {\n                        out.push((rel.indexOf('http://') === 0 || rel.indexOf('https://') === 0) ? rel : ATLAS_PREFIX + rel);\n                    }\n                }\n            }\n            if (out.length) break;\n        }\n        var seen = {}, uniq = [];\n        for (var k = 0; k < out.length; k++) {\n            if (!seen[out[k]]) { seen[out[k]] = 1; uniq.push(out[k]); }\n        }\n        return uniq.slice(0, MAX_IMAGES);\n    }\n\n    function extractFields(photo) {\n        var title = firstField(photo, TITLE_FIELDS);\n        var desc = firstField(photo, DESC_FIELDS);\n        var cover = firstField(photo, COVER_FIELDS);\n        var video = firstField(photo, VIDEO_FIELDS);\n        var images = video ? [] : atlasImages(photo);\n        return {\n            title: title || desc || '',\n            description: desc || title || '',\n            coverURL: cover || '',\n            videoURL: video || '',\n            imageURLs: images\n        };\n    }\n\n    // ---- photo 捕获 ----\n    var didCapture = false;\n    function handlePhoto(photo, src) {\n        if (didCapture || !photo || typeof photo !== 'object') return;\n        var fields = extractFields(photo);\n        var hasMedia = fields.videoURL || (fields.imageURLs && fields.imageURLs.length);\n        if (!hasMedia) return;\n        didCapture = true;\n        postLog('captured via ' + src + ' video=' + !!fields.videoURL + ' images=' + fields.imageURLs.length);\n        postResult(fields);\n    }\n\n    function photoIdFromLocation() {\n        try {\n            var parts = (window.location.pathname || '').split('/');\n            for (var i = 0; i < parts.length - 1; i++) {\n                if (parts[i] === 'short-video' && parts[i + 1]) return parts[i + 1];\n            }\n        } catch (e) {}\n        return null;\n    }\n\n    // 认两种查询名的 photo（visionShortVideoReco 推荐挂载 / visionVideoDetail 详情接口），\n    // 另加全树兜底：任何位置出现「ID 匹配页面地址」的照片对象都收（防查询名再改版）。\n    // feeds（推荐流）照片 ID 不匹配页面地址，不会误抓。\n    function looksLikeTargetPhoto(obj, expect) {\n        if (!obj || typeof obj !== 'object') return false;\n        if (expect == null) return false;\n        // id 可能是数字 ID，photoId 可能是 base62 token，两个都试\n        var oid = (obj.id != null) ? String(obj.id)\n                : (obj.photoId != null ? String(obj.photoId) : '');\n        if (oid !== String(expect)) return false;\n        return !!(obj.caption || obj.coverUrls || obj.srcNoMark || obj.mainMvUrls\n                  || obj.mainMvUrl || obj.photoUrl || obj.ext_params);\n    }\n\n    function scan(obj) {\n        if (!obj || typeof obj !== 'object') return;\n        if (obj.data && obj.data.visionShortVideoReco) {\n            var reco = obj.data.visionShortVideoReco;\n            if (reco.photo) { handlePhoto(reco.photo, 'reco.photo'); return; }\n            // feeds 按页面 ID 精确匹配（photo.id 是 base62 token，与 URL 同源）。\n            // 绝不盲取 feeds[0]：未登录分享页环境里 feeds 全是推荐，盲取会抓错视频（2026-09-11 实锤）。\n            var expectR = photoIdFromLocation();\n            if (reco.feeds && reco.feeds.length) {\n                var found = false;\n                for (var fi = 0; fi < reco.feeds.length; fi++) {\n                    var p = reco.feeds[fi] && reco.feeds[fi].photo;\n                    if (p && expectR != null && String(p.id) === String(expectR)) {\n                        handlePhoto(p, 'feeds[' + fi + '].photo');\n                        found = true;\n                        break;\n                    }\n                }\n                if (!found) {\n                    postLog('reco: no feed photo matches pageId=' + (expectR || 'null')\n                            + ', feeds=' + reco.feeds.length);\n                }\n            } else {\n                postLog('reco present but no photo, keys=' + Object.keys(reco).join(','));\n            }\n        }\n        if (obj.data && obj.data.visionVideoDetail) {\n            var det = obj.data.visionVideoDetail;\n            if (det.photo) { handlePhoto(det.photo, 'visionVideoDetail.photo'); return; }\n            postLog('visionVideoDetail present but no photo, keys=' + Object.keys(det).join(','));\n        }\n        var expect = photoIdFromLocation();\n        if (expect != null && looksLikeTargetPhoto(obj, expect)) {\n            handlePhoto(obj, 'deep:' + (obj.__typename || 'photo'));\n            return;\n        }\n        for (var k in obj) {\n            if (Object.prototype.hasOwnProperty.call(obj, k)) {\n                try { scan(obj[k]); } catch (e) {}\n            }\n        }\n    }\n\n    // 兜底封面：poster → og:image → 页面快手图床 img → CSS 背景图。\n    // 只认 /upic/ 路径（视频封面），排除 /uhead/（用户头像，2026-09-11 实锤会误当封面）。\n    function domCover() {\n        var ok = function(s) {\n            return s && s.indexOf('http') === 0\n                && (s.indexOf('/upic/') !== -1 || s.indexOf('photoc') !== -1);\n        };\n        try {\n            var el = document.querySelector('video');\n            if (el && ok(el.poster)) return el.poster;\n            var meta = document.querySelector('meta[property=\"og:image\"]');\n            if (meta && ok(meta.content)) return meta.content;\n            var imgs = document.querySelectorAll('img');\n            for (var i = 0; i < imgs.length; i++) {\n                var s = imgs[i].src || '';\n                if (ok(s) && (s.indexOf('yximgs.com') !== -1 || s.indexOf('kwimgs.com') !== -1)) return s;\n            }\n            var all = document.querySelectorAll('[style*=\"background-image\"]');\n            for (var j = 0; j < all.length; j++) {\n                var bg = (all[j].style && all[j].style.backgroundImage) || '';\n                var m = bg.match(/url\\([\"']?(https?:[^\"')]+)[\"']?\\)/);\n                if (m && ok(m[1]) && (m[1].indexOf('yximgs.com') !== -1 || m[1].indexOf('kwimgs.com') !== -1)) return m[1];\n            }\n        } catch (e) {}\n        return '';\n    }\n\n    // 兜底：__APOLLO_STATE__ 的 PhotoEntity 缓存 → 页面 <video> 元素\n    function domFallback() {\n        if (didCapture) return;\n        try {\n            var state = window.__APOLLO_STATE__;\n            if (state && typeof state === 'object') {\n                var expect = photoIdFromLocation();\n                var targetKey = expect ? ('PhotoEntity:' + expect) : null;\n                if (targetKey && state[targetKey]) {\n                    handlePhoto(state[targetKey], 'apollo:' + targetKey);\n                    return;\n                }\n                for (var key in state) {\n                    if (Object.prototype.hasOwnProperty.call(state, key)) {\n                        var entry = state[key];\n                        if (entry && entry.__typename === 'PhotoEntity'\n                            && expect != null && String(entry.id) === String(expect)) {\n                            handlePhoto(entry, 'apollo:' + key);\n                            return;\n                        }\n                    }\n                }\n                // 列出 Apollo 里实际存在的 PhotoEntity ID，判断目标是没到还是 ID 对不上\n                var entityIds = [];\n                for (var k2 in state) {\n                    if (Object.prototype.hasOwnProperty.call(state, k2)\n                        && state[k2] && state[k2].__typename === 'PhotoEntity') {\n                        entityIds.push(String(state[k2].id || k2));\n                        if (entityIds.length >= 6) break;\n                    }\n                }\n                postLog('apollo no target, pageId=' + (expect || 'null')\n                        + (entityIds.length ? ', entities=' + entityIds.join(',') : ', no PhotoEntity'));\n            }\n        } catch (e) { postLog('apollo fallback error: ' + (e && e.message)); }\n        try {\n            var el = document.querySelector('video');\n            if (el) {\n                var src = el.currentSrc || el.src || '';\n                if (src && src.indexOf('http') === 0) {\n                    handlePhoto({ srcNoMark: src, caption: document.title || '', coverUrl: domCover() },\n                                'video-element');\n                }\n            }\n        } catch (e) { postLog('dom fallback error: ' + (e && e.message)); }\n    }\n    setTimeout(domFallback, 3000);\n    setTimeout(domFallback, 5000);\n    setTimeout(domFallback, 8000);\n    setTimeout(domFallback, 12000);\n\n    // ---- 拦截 fetch / XMLHttpRequest（与旧内置拦截脚本同策略） ----\n    function isKsGraphQL(url, body) {\n        var u = String(url || ''), b = (typeof body === 'string') ? body : '';\n        return u.indexOf('graphql') !== -1\n            || b.indexOf('photoId') !== -1\n            || b.indexOf('visionVideoDetail') !== -1\n            || b.indexOf('visionShortVideoReco') !== -1;\n    }\n\n    var originalFetch = window.fetch;\n    if (originalFetch) {\n        window.fetch = function() {\n            var input = arguments[0], init = arguments[1] || {};\n            var url = (typeof input === 'string') ? input : (input && input.url) || '';\n            var body = init.body;\n            var isGraph = isKsGraphQL(url, body);\n            if (isGraph) postLog('[REQ] FETCH ' + url);\n            var p = originalFetch.apply(this, arguments);\n            if (isGraph) {\n                p.then(function(response) {\n                    try {\n                        response.clone().json().then(function(d) { inspect(d, url); })\n                            .catch(function(e) { postLog('resp parse fail (fetch): ' + url.slice(0, 60)); });\n                    } catch (e) {}\n                }).catch(function() {});\n            }\n            return p;\n        };\n    }\n\n    var originalOpen = XMLHttpRequest.prototype.open;\n    var originalSend = XMLHttpRequest.prototype.send;\n    XMLHttpRequest.prototype.open = function(method, url) {\n        this.__pluginUrl = String(url || '');\n        return originalOpen.apply(this, arguments);\n    };\n    XMLHttpRequest.prototype.send = function(body) {\n        var self = this, url = this.__pluginUrl || '';\n        if (isKsGraphQL(url, body)) {\n            postLog('[REQ] XHR ' + url);\n            this.addEventListener('load', function() {\n                try {\n                    inspect(JSON.parse(self.responseText), url);\n                } catch (e) {\n                    postLog('resp parse fail (xhr): ' + url.slice(0, 60)\n                            + ' len=' + (self.responseText || '').length);\n                }\n            });\n        }\n        return originalSend.apply(this, arguments);\n    };\n})();\n"
+        }
+      ],
+      "displayName": "快手",
+      "httpPolicy": {
+        "refererMode": "source"
+      }
+    },
+    {
+      "id": "douyin",
+      "hosts": [
+        "douyin.com",
+        "iesdouyin.com"
+      ],
+      "idPattern": "(?<=/)\\d{15,}",
+      "timeout": 25,
+      "fallbackToLegacy": false,
+      "steps": [
+        {
+          "id": "warmup",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://www.iesdouyin.com/share/note/{id}/",
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1"
+            }
+          },
+          "script": "// 抖音分享页 · warmup 步（建议在同一 URL 上跑两次）—— 只为让服务端下发 ttwid cookie。\n//\n// 为什么需要：引擎 http 步骤共用 URLSessionConfiguration.default，cookie 自动进\n// HTTPCookieStorage.shared。但抖音分享页**首次请求常只回 33KB 壳页**（「抱歉出错了」），\n// 同时在 Set-Cookie 里下发 ttwid；带 ttwid 再请求同一 URL 才返回完整 SSR（160KB+）。\n//\n// ⚠️ 为什么要跑两次：ttwid 是否下发有随机性 —— 实测单次约 2/3 命中（真实 URLSession 6 轮\n// 里 2 轮完全不下发）。单次 warmup 成功率仅 4/6，**前置两次后 6/6**。所以规则里应有\n// warmup + warmup2 两步（脚本可原样复用），第三步 detail 才取数据。\n//\n// ⚠️ UA 必须移动端：桌面 UA 打分享页第二次只有 6.3KB 空壳，iPhone UA 才有 161KB。\n// ⚠️ 不要 warmup 首页（www.iesdouyin.com/）：它下发的 __ac_nonce 会让后续分享页反而回\n//    6.3KB 空壳（实测 0/3）——warmup 与 detail 必须用同一个分享页 URL。\n\nfunction dyRiskControl(html) {\n  // 只用「风控页面专有」的中文信号。正常分享页也会引用 TTGCaptcha SDK（含 captcha /\n  // verifyCenter 字样），把 SDK 引用词当信号会误判所有正常页——故不列英文 SDK 词。\n  var signals = ['人机验证', '安全验证', '验证码', '请完成验证', '滑块验证'];\n  for (var i = 0; i < signals.length; i++) {\n    if (html.indexOf(signals[i]) >= 0) return true;\n  }\n  return false;\n}\n\n// ⚠️ warmup 步必须「静默成功」：引擎按序跑完所有步骤，任一步报 error 就终止 ——\n// 若这里对壳页报 error，后面的 detail 步根本不会被执行。\nfunction extract(input) {\n  var html = '';\n  try { html = (JSON.parse(input).text) || ''; } catch (e) {}\n  if (dyRiskControl(html)) return JSON.stringify({ rateLimited: true });\n  return JSON.stringify({ warmup: 'ok' });\n}\n"
+        },
+        {
+          "id": "warmup2",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://www.iesdouyin.com/share/note/{id}/",
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1"
+            }
+          },
+          "script": "// 抖音分享页 · warmup 步（建议在同一 URL 上跑两次）—— 只为让服务端下发 ttwid cookie。\n//\n// 为什么需要：引擎 http 步骤共用 URLSessionConfiguration.default，cookie 自动进\n// HTTPCookieStorage.shared。但抖音分享页**首次请求常只回 33KB 壳页**（「抱歉出错了」），\n// 同时在 Set-Cookie 里下发 ttwid；带 ttwid 再请求同一 URL 才返回完整 SSR（160KB+）。\n//\n// ⚠️ 为什么要跑两次：ttwid 是否下发有随机性 —— 实测单次约 2/3 命中（真实 URLSession 6 轮\n// 里 2 轮完全不下发）。单次 warmup 成功率仅 4/6，**前置两次后 6/6**。所以规则里应有\n// warmup + warmup2 两步（脚本可原样复用），第三步 detail 才取数据。\n//\n// ⚠️ UA 必须移动端：桌面 UA 打分享页第二次只有 6.3KB 空壳，iPhone UA 才有 161KB。\n// ⚠️ 不要 warmup 首页（www.iesdouyin.com/）：它下发的 __ac_nonce 会让后续分享页反而回\n//    6.3KB 空壳（实测 0/3）——warmup 与 detail 必须用同一个分享页 URL。\n\nfunction dyRiskControl(html) {\n  // 只用「风控页面专有」的中文信号。正常分享页也会引用 TTGCaptcha SDK（含 captcha /\n  // verifyCenter 字样），把 SDK 引用词当信号会误判所有正常页——故不列英文 SDK 词。\n  var signals = ['人机验证', '安全验证', '验证码', '请完成验证', '滑块验证'];\n  for (var i = 0; i < signals.length; i++) {\n    if (html.indexOf(signals[i]) >= 0) return true;\n  }\n  return false;\n}\n\n// ⚠️ warmup 步必须「静默成功」：引擎按序跑完所有步骤，任一步报 error 就终止 ——\n// 若这里对壳页报 error，后面的 detail 步根本不会被执行。\nfunction extract(input) {\n  var html = '';\n  try { html = (JSON.parse(input).text) || ''; } catch (e) {}\n  if (dyRiskControl(html)) return JSON.stringify({ rateLimited: true });\n  return JSON.stringify({ warmup: 'ok' });\n}\n"
+        },
+        {
+          "id": "detail",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://www.iesdouyin.com/share/note/{id}/",
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1"
+            }
+          },
+          "script": "// 抖音分享页 · step2「detail」—— 从 SSR HTML 里抽作品 item。\n//\n// 前置：step1 已用移动 UA 打过同一 URL，ttwid 已在 HTTPCookieStorage.shared 里，\n// 本步（第二次请求）才拿到完整数据。\n//\n// 数据落点：_ROUTER_DATA.loaderData[\"note_(id)/page\"|\"video_(id)/page\"]\n//             .videoInfoRes.item_list[0]\n//   实测同一 ID 走 /share/note/ 与 /share/video/ 返回**完全相同**的 item\n//   （desc / author / video.play_addr / cover / duration 全等），故统一走 note 路径。\n//\n//   desc                      → 标题\n//   video.play_addr.url_list  → 视频地址（playwm = 带水印，需换成 play）\n//   video.play_addr.uri       → 无水印直链基座（优先，构造 1080p）\n//   video.cover.url_list      → 封面\n//   images[].url_list[0]      → 图集图片\n//\n// 图集坑：图集页的 video.play_addr 是 playwm 模板占位视频，吐出去会被引擎判为视频源、\n// 不走图片导入。故只要有图片就清空视频地址并显式声明 expectsVideo=false。\n\nfunction dyRiskControl(html) {\n  var signals = ['人机验证', '安全验证', '验证码', '请完成验证', '滑块验证'];\n  for (var i = 0; i < signals.length; i++) {\n    if (html.indexOf(signals[i]) >= 0) return true;\n  }\n  return false;\n}\n\n// 括号配对抽 JSON（字符串感知：跳过转义与引号内字符）\nfunction dyBalancedJSON(html, from) {\n  var s = html.indexOf('{', from);\n  if (s < 0) return null;\n  var depth = 0, inStr = false, esc = false;\n  for (var p = s; p < html.length; p++) {\n    var c = html.charAt(p);\n    if (esc) { esc = false; continue; }\n    if (c === '\\\\') { esc = true; continue; }\n    if (c === '\"') { inStr = !inStr; continue; }\n    if (inStr) continue;\n    if (c === '{') depth++;\n    else if (c === '}') { depth--; if (depth === 0) return html.slice(s, p + 1); }\n  }\n  return null;\n}\n\n// 从一个 url 容器（{url_list:[...]} / {urlList:[...]}）取首个地址\nfunction dyFirstURL(node) {\n  if (!node || typeof node !== 'object') return '';\n  var list = node.url_list || node.urlList || [];\n  return (list && list.length && typeof list[0] === 'string') ? list[0] : '';\n}\n\n// 单个节点里找 item（兼容视频/图集/嵌套 data 层级，对齐旧原生解析器语义）\nfunction dyItemFromNode(node) {\n  if (!node || typeof node !== 'object') return null;\n  if (node.videoInfoRes && node.videoInfoRes.item_list && node.videoInfoRes.item_list[0]) {\n    return node.videoInfoRes.item_list[0];\n  }\n  if (node.item_list && node.item_list[0]) return node.item_list[0];\n  if (node.aweme_detail && node.aweme_detail.item_list && node.aweme_detail.item_list[0]) {\n    return node.aweme_detail.item_list[0];\n  }\n  var d = node.data;\n  if (d && typeof d === 'object') {\n    if (d.videoInfoRes && d.videoInfoRes.item_list && d.videoInfoRes.item_list[0]) {\n      return d.videoInfoRes.item_list[0];\n    }\n    if (d.item_list && d.item_list[0]) return d.item_list[0];\n    if (d.aweme_detail && d.aweme_detail.item_list && d.aweme_detail.item_list[0]) {\n      return d.aweme_detail.item_list[0];\n    }\n  }\n  return null;\n}\n\nfunction dyPickItem(root) {\n  var nodes = [];\n  var ld = root && root.loaderData;\n  if (ld && typeof ld === 'object') {\n    for (var k in ld) {\n      if (ld[k] && typeof ld[k] === 'object') nodes.push(ld[k]);\n    }\n  }\n  nodes.push(root);\n  for (var i = 0; i < nodes.length; i++) {\n    var it = dyItemFromNode(nodes[i]);\n    if (it) return it;\n  }\n  return null;\n}\n\nfunction extract(input) {\n  var o = {};\n  try { o = JSON.parse(input) || {}; } catch (e) { return JSON.stringify({ error: '输入不是合法 JSON' }); }\n  var html = o.text || '';\n  if (!html) return JSON.stringify({ error: '页面为空' });\n\n  if (dyRiskControl(html)) return JSON.stringify({ rateLimited: true });\n\n  // 壳页（首次请求 / 内容不可访问）没有 item_list，只有「抱歉出错了」文案\n  var marker = 'window._ROUTER_DATA';\n  var mi = html.indexOf(marker);\n  if (mi < 0) {\n    return JSON.stringify({ error: '分享页未返回数据（内容可能已删除，或链接无效）' });\n  }\n\n  var json = dyBalancedJSON(html, mi);\n  if (!json) return JSON.stringify({ error: '_ROUTER_DATA 结构不完整' });\n\n  var root;\n  try { root = JSON.parse(json); } catch (e) { return JSON.stringify({ error: '_ROUTER_DATA 解析失败' }); }\n\n  var item = dyPickItem(root);\n  if (!item) return JSON.stringify({ error: '分享页未返回作品信息（内容可能已删除，或链接无效）' });\n\n  var title = item.desc || item.title || item.aweme_desc || '';\n  if (!title) title = '抖音作品' + (item.aweme_id ? ' ' + item.aweme_id : '');\n\n  // 图集图片\n  var images = (item.images && item.images.length) ? item.images : [];\n  var imageURLs = [];\n  for (var i = 0; i < images.length; i++) {\n    var u = dyFirstURL(images[i]);\n    if (u) imageURLs.push(u);\n  }\n\n  var video = item.video || {};\n  // 封面：video.cover → origin_cover（图集无封面时下方用首图兜底）\n  var coverURL = dyFirstURL(video.cover) || dyFirstURL(video.origin_cover) || '';\n\n  // 视频地址：优先 play_addr.uri 构造无水印 1080p；否则 url_list[0] 把 playwm 换成 play\n  var videoURL = '';\n  var playAddr = video.play_addr || video.playAddr || {};\n  if (playAddr && typeof playAddr.uri === 'string' && playAddr.uri) {\n    videoURL = 'https://www.iesdouyin.com/aweme/v1/play/?video_id=' +\n              playAddr.uri + '&ratio=1080p&line=0';\n  } else {\n    var pu = dyFirstURL(playAddr);\n    if (pu) videoURL = pu.replace('playwm', 'play');\n  }\n\n  var out = {\n    title: title,\n    description: title,\n    body: title,\n    coverURL: coverURL,\n    imageURLs: imageURLs,\n    videoURL: videoURL\n  };\n\n  // 图集优先：有图片就清掉视频地址（图集页自带的 playwm 是占位模板），\n  // 并显式声明非视频，否则引擎会把它当视频源、不走图片导入。\n  if (imageURLs.length > 0) {\n    out.videoURL = '';\n    out.expectsVideo = false;\n    if (!out.coverURL) out.coverURL = imageURLs[0];\n  }\n\n  return JSON.stringify(out);\n}\n"
+        }
+      ],
+      "displayName": "抖音",
+      "httpPolicy": {
+        "refererMode": "none"
+      }
+    },
+    {
+      "id": "xiaohongshu",
+      "hosts": [
+        "xiaohongshu.com",
+        "xhslink.com",
+        "xhslink.cn"
+      ],
+      "idPattern": "xiaohongshu\\.com/(explore|discovery/item)/[0-9a-zA-Z]+",
+      "timeout": 20,
+      "fallbackToLegacy": false,
+      "steps": [
+        {
+          "id": "page",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          },
+          "script": "function extract(input) {\n    // 小红书解析页面脚本（platformsV2 / fetch.method=http）。\n    // 移植自 LinkParser+Xiaohongshu.swift：单次 HTTP 拉页面 HTML，\n    // 从 SSR JSON（__SETUP_SERVER_STATE__ / __INITIAL_STATE__）提取笔记数据，\n    // meta 兜底；两路全空判限流（限流页输出 rateLimited，引擎抛 PlatformRateLimitedError；其余 error 按 fallbackToLegacy 退通用解析）。\n    var ctx = JSON.parse(input);\n    var html = ctx.text || \"\";\n\n    // ---- 与规则包 platforms.xiaohongshu 同源的常量（站点改版时在此热更） ----\n    var MARK_SETUP = \"window.__SETUP_SERVER_STATE__\";\n    var MARK_INIT  = \"window.__INITIAL_STATE__\";\n    var NOTE_DATA_PATHS = [\"LAUNCHER_SSR_STORE_PAGE_DATA.noteData\", \"note\", \"noteWithComments\",\n        \"currentNote\", \"noteData.data.noteData\", \"noteData.normalNotePreloadData\",\n        \"noteDetailMap\", \"global.noteDetailMap\", \"note.noteDetailMap\"];\n    var TITLE_FIELDS = [\"title\", \"displayTitle\", \"display_title\"];\n    var DESC_FIELDS = [\"desc\", \"description\", \"body\", \"content\", \"text\"];\n    var STREAM_KEYS = [\"h264\", \"h265\"];\n    var VIDEO_URL_FIELDS = [\"masterUrl\", \"master_url\"];\n    var IMAGE_LIST_KEYS = [\"imageList\", \"imagesList\", \"image_list\"];\n    var IMAGE_URL_FIELDS = [\"urlDefault\", \"url_default\", \"url\"];\n    var COVER_FILE_ID_PREFIX = \"https://sns-webpic-qc.xhscdn.com/\";\n    var MAX_MEDIA = 15;\n\n    // ---- 基础工具（与 Swift 侧 sanitizeJSLiteral / extractBalancedJSON 同逻辑） ----\n    function sanitize(s) {\n        return s.replace(/\\bundefined\\b/g, \"null\")\n                .replace(/\\bNaN\\b/g, \"null\")\n                .replace(/\\bInfinity\\b/g, \"null\")\n                .replace(/,(\\s*[}\\]])/g, \"$1\");\n    }\n    function balancedJSON(text, marker) {\n        var remaining = text;\n        if (marker) {\n            var idx = remaining.indexOf(marker);\n            if (idx === -1) return null;\n            remaining = remaining.slice(idx + marker.length);\n        }\n        var start = remaining.indexOf(\"{\");\n        if (start === -1) return null;\n        remaining = remaining.slice(start);\n        var depth = 0, inStr = false, quote = \"\\\"\", escaped = false, end = -1;\n        for (var i = 0; i < remaining.length; i++) {\n            var ch = remaining.charAt(i);\n            if (inStr) {\n                if (escaped) { escaped = false; }\n                else if (ch === \"\\\\\") { escaped = true; }\n                else if (ch === quote) { inStr = false; }\n            } else {\n                if (ch === \"{\") { depth++; }\n                else if (ch === \"}\") { depth--; if (depth === 0) { end = i; break; } }\n                else if (ch === \"\\\"\" || ch === \"'\") { inStr = true; quote = ch; escaped = false; }\n            }\n        }\n        if (end === -1) return null;\n        return remaining.slice(0, end + 1);\n    }\n    function parseDict(s) {\n        try {\n            var o = JSON.parse(sanitize(s));\n            return (o && typeof o === \"object\" && !(o instanceof Array)) ? o : null;\n        } catch (e) { return null; }\n    }\n    function isDict(v) { return v && typeof v === \"object\" && !(v instanceof Array); }\n\n    // ---- note 数据定位（与 extractRednoteNoteData 同逻辑，含 noteDetailMap 集合展开） ----\n    function candidatesFromPath(root, path) {\n        var parts = path.split(\".\");\n        var node = root;\n        for (var i = 0; i < parts.length; i++) {\n            if (!isDict(node) || !(parts[i] in node)) return [];\n            node = node[parts[i]];\n        }\n        if (!isDict(node)) return [];\n        var keys = Object.keys(node);\n        if (!keys.length) return [];\n        var allDict = true;\n        for (var k = 0; k < keys.length; k++) {\n            if (!isDict(node[keys[k]])) { allDict = false; break; }\n        }\n        if (allDict) {\n            var out = [];\n            for (var k2 = 0; k2 < keys.length; k2++) {\n                var entry = node[keys[k2]];\n                if (isDict(entry.note)) { out.push(entry.note); }\n                else if (entry.title != null || entry.desc != null\n                         || entry.imageList != null || entry.imagesList != null) { out.push(entry); }\n            }\n            return out;\n        }\n        return [node];\n    }\n    function extractNoteData(root) {\n        var candidates = [];\n        for (var i = 0; i < NOTE_DATA_PATHS.length; i++) {\n            candidates = candidates.concat(candidatesFromPath(root, NOTE_DATA_PATHS[i]));\n        }\n        for (var j = 0; j < candidates.length; j++) {\n            var c = candidates[j];\n            if (c.title != null || c.desc != null || c.imageList != null || c.imagesList != null) return c;\n        }\n        return candidates.length ? candidates[0] : root;\n    }\n\n    // ---- 字段提取（与 extractRednoteTitle / extractRednoteBody 等同逻辑） ----\n    function extractTitle(nd, root) {\n        var sources = [nd, root, (root && isDict(root.userPageData)) ? root.userPageData : {}];\n        for (var s = 0; s < sources.length; s++) {\n            for (var k = 0; k < TITLE_FIELDS.length; k++) {\n                var v = sources[s][TITLE_FIELDS[k]];\n                if (typeof v === \"string\" && v) return v;\n            }\n        }\n        return \"\";\n    }\n    function extractBody(nd, fallbackTitle) {\n        for (var k = 0; k < DESC_FIELDS.length; k++) {\n            var v = nd[DESC_FIELDS[k]];\n            if (typeof v === \"string\" && v) return v;\n        }\n        if (nd.itemList instanceof Array) {\n            for (var i = 0; i < nd.itemList.length; i++) {\n                var item = nd.itemList[i] || {};\n                if (typeof item.content === \"string\" && item.content) return item.content;\n                if (typeof item.desc === \"string\" && item.desc) return item.desc;\n            }\n        }\n        return fallbackTitle;\n    }\n    function extractVideo(nd) {\n        var video = nd.video;\n        if (!isDict(video)) return null;\n        var media = isDict(video.media) ? video.media : {};\n        var stream = isDict(media.stream) ? media.stream : {};\n        var streams = [];\n        for (var i = 0; i < STREAM_KEYS.length; i++) {\n            var arr = stream[STREAM_KEYS[i]];\n            if (arr instanceof Array) streams = streams.concat(arr);\n        }\n        if (streams.length) {\n            for (var j = 0; j < VIDEO_URL_FIELDS.length; j++) {\n                var v = streams[0][VIDEO_URL_FIELDS[j]];\n                if (typeof v === \"string\" && v) return v;\n            }\n        }\n        if (typeof video.mediaV2 === \"string\") {\n            var m2 = parseDict(video.mediaV2);\n            if (m2) {\n                for (var j2 = 0; j2 < VIDEO_URL_FIELDS.length; j2++) {\n                    var v2 = m2[VIDEO_URL_FIELDS[j2]];\n                    if (typeof v2 === \"string\" && v2) return v2;\n                }\n            }\n            return null;\n        }\n        // 降级：media.video 直取（SetupState 路径的兜底分支）\n        if (isDict(media.video)) {\n            var mv = media.video.url || media.video.masterUrl;\n            if (typeof mv === \"string\" && mv) return mv;\n        }\n        return null;\n    }\n    function extractImages(nd) {\n        var list = null;\n        for (var k = 0; k < IMAGE_LIST_KEYS.length; k++) {\n            if (nd[IMAGE_LIST_KEYS[k]] instanceof Array) { list = nd[IMAGE_LIST_KEYS[k]]; break; }\n        }\n        if (!list) return [];\n        var out = [];\n        for (var i = 0; i < list.length && out.length < MAX_MEDIA; i++) {\n            var img = list[i] || {};\n            var found = null;\n            for (var f = 0; f < IMAGE_URL_FIELDS.length; f++) {\n                var u = img[IMAGE_URL_FIELDS[f]];\n                if (typeof u === \"string\" && u) { found = u; break; }\n            }\n            if (!found) {\n                var infos = img.infoList || img.info_list;\n                if (infos instanceof Array && infos.length && typeof infos[0].url === \"string\") {\n                    found = infos[0].url;\n                }\n            }\n            if (found) out.push(found.indexOf(\"http://\") === 0 ? found.replace(\"http://\", \"https://\") : found);\n        }\n        return out;\n    }\n\n    // ---- meta 兜底（对应 extractFromHTML 的 meta 部分） ----\n    function decodeHTML(s) {\n        return String(s)\n            .replace(/&amp;/g, \"&\").replace(/&lt;/g, \"<\").replace(/&gt;/g, \">\")\n            .replace(/&quot;/g, \"\\\"\").replace(/&#39;/g, \"'\").replace(/&nbsp;/g, \" \");\n    }\n    var metaCache = null;\n    function readMeta(names) {\n        if (!metaCache) {\n            metaCache = {};\n            var tags = html.match(/<meta\\b[^>]*>/gi) || [];\n            for (var i = 0; i < tags.length; i++) {\n                var nm = tags[i].match(/(?:property|name)=[\"\\']([^\"\\']+)[\"\\']/i);\n                var cm = tags[i].match(/content=[\"\\']([^\"\\']*)[\"\\']/i);\n                if (nm && cm && !(nm[1] in metaCache)) metaCache[nm[1]] = decodeHTML(cm[1]);\n            }\n        }\n        for (var j = 0; j < names.length; j++) {\n            var v = metaCache[names[j]];\n            if (v) return v;\n        }\n        return \"\";\n    }\n\n    // ---- 两条 SSR 路径 ----\n    function parseSetup() {\n        var s = balancedJSON(html, MARK_SETUP);\n        if (!s) return null;\n        var data = parseDict(s);\n        if (!data) return null;\n        var launcher = data.LAUNCHER_SSR_STORE_PAGE_DATA;\n        if (!isDict(launcher) || !isDict(launcher.noteData)) return null;\n        var nd = launcher.noteData;\n        var title = extractTitle(nd, data);\n        var desc = extractBody(nd, title);\n        var type = nd.type || \"\";\n        var videoURL = null, imageURLs = [], coverURL = null;\n        if (type === \"video\") {\n            videoURL = extractVideo(nd);\n            if (isDict(nd.cover) && typeof nd.cover.fileId === \"string\" && nd.cover.fileId) {\n                coverURL = COVER_FILE_ID_PREFIX + nd.cover.fileId + \"?imageView2/format/jpg\";\n            }\n        } else {\n            imageURLs = extractImages(nd);\n        }\n        return { title: title, description: desc, coverURL: coverURL, imageURLs: imageURLs, videoURL: videoURL };\n    }\n    function parseInit() {\n        var s = balancedJSON(html, MARK_INIT);\n        if (!s) return null;\n        var data = parseDict(s);\n        if (!data) return null;\n        var nd = extractNoteData(data);\n        var title = extractTitle(nd, data);\n        var body = extractBody(nd, title);\n        var type = nd.type || \"\";\n        var videoURL = extractVideo(nd);\n        var coverURL = null;\n        if (isDict(nd.cover)) {\n            var cu = nd.cover.urlDefault || nd.cover.url_default;\n            if (typeof cu === \"string\" && cu) coverURL = cu;\n        }\n        var imageURLs = extractImages(nd);\n        if (type === \"video\") {\n            // 视频笔记的 imageList 是预览帧，不当地图集；cover 缺失用首帧\n            if (!coverURL && imageURLs.length) coverURL = imageURLs[0];\n            imageURLs = [];\n        }\n        return { title: title, description: body, coverURL: coverURL, imageURLs: imageURLs, videoURL: videoURL };\n    }\n\n    var setupRes = parseSetup();\n    var initRes = parseInit();\n    var primary = setupRes || initRes;\n    var other = setupRes ? initRes : null;\n\n    function pick(a, b, c) { return a || b || c || \"\"; }\n\n    if (primary) {\n        var metaTitle = readMeta([\"og:title\", \"twitter:title\"]);\n        var metaCover = readMeta([\"og:image\", \"twitter:image\"]);\n        var out = {\n            title: pick(primary.title, other ? other.title : \"\", metaTitle),\n            description: pick(primary.description, other ? other.description : \"\", readMeta([\"og:description\"])),\n            body: pick(primary.description, other ? other.description : \"\"),\n            coverURL: pick(primary.coverURL, other ? other.coverURL : \"\", metaCover),\n            videoURL: primary.videoURL || (other ? other.videoURL : \"\") || readMeta([\"og:video\", \"og:video:url\", \"og:video:secure_url\"]),\n            imageURLs: primary.imageURLs.length ? primary.imageURLs : (other && other.imageURLs.length ? other.imageURLs : [])\n        };\n        // 视频笔记保留封面、清图集的语义已在各路径内处理；这里只补 meta 封面兜底\n        if (out.videoURL && !out.coverURL && metaCover) out.coverURL = metaCover;\n        if (!out.title) return { rateLimited: \"true\", error: \"ssr 命中但标题为空（疑似反爬精简页）\" };\n        return JSON.stringify(out);\n    }\n\n    // 两条 SSR 路径都没命中 → meta 兜底；meta 也没媒体则判限流，交回旧解析器\n    var mTitle = readMeta([\"og:title\", \"twitter:title\"]);\n    var mDesc = readMeta([\"og:description\", \"twitter:description\", \"description\"]);\n    var mCover = readMeta([\"og:image\", \"twitter:image\"]);\n    var mVideo = readMeta([\"og:video\", \"og:video:url\", \"og:video:secure_url\"]);\n    var hasUseful = mTitle || mDesc || mCover || mVideo;\n    if (!hasUseful) {\n        return { rateLimited: \"true\", error: \"两个 SSR marker 均未命中且 meta 无数据（疑似限流精简页）\" };\n    }\n    return JSON.stringify({\n        title: mTitle,\n        description: mDesc,\n        body: mDesc,\n        coverURL: mCover,\n        videoURL: mVideo,\n        imageURLs: (mCover && !mVideo) ? [mCover] : []\n    });\n}\n"
+        }
+      ],
+      "displayName": "小红书",
+      "httpPolicy": {
+        "refererMode": "source"
+      }
+    },
+    {
+      "id": "mgtv",
+      "hosts": [
+        "mgtv.com"
+      ],
+      "idPattern": "[0-9]+(?=\\.html)",
+      "timeout": 20,
+      "fallbackToLegacy": true,
+      "steps": [
+        {
+          "id": "discover",
+          "script": "// 芒果TV platformsV2 插件 · Step0: 专题/合集页探测\n// 背景：/topic/{tid}.html 是合集页（内含多集 /b/{album}/{vid}.html），idPattern 抽到的是 topic id 而非视频 id，\n// 直接调 player/video 会 code=30001 失败、退回旧解析器落成图集。本步从专题页 HTML 提取首个\n// /b/{album}/{vid}.html 的 vid 覆盖 vars['id']，后续 info/source/atcl 即走视频解析。\n// 单视频页（/b/{album}/{vid}.html）url 不含 /topic/ → 不重写，沿用 idPattern 已抽对的 vid。\nfunction extract(input) {\n    var o = JSON.parse(input);\n    var url = o.url || '';\n    if (url.indexOf('/topic/') === -1) return JSON.stringify({});\n    var text = o.text || '';\n    var m = text.match(/\\/b\\/(\\d+)\\/(\\d+)\\.html/);\n    if (!m) return JSON.stringify({ error: '未从专题页提取到视频链接' });\n    return JSON.stringify({ id: m[2] });\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          }
+        },
+        {
+          "id": "info",
+          "script": "// 芒果TV platformsV2 插件 · http 步骤脚本（3 步）\n// 链路：player/video(info+pm2) → getSource(stream 列表) → atcl(m3u8 直链)\n// tk2 签名实测宽松（只验 base64 格式，不验内容/时效，2026-09-11）→ urlTemplate 写死静态串。\n// 产物 = HLS m3u8（未加密 TS 分片）→ 依赖下载器 HLS 分支（LinkParser+Download）拼接 .ts。\n// ES5 纯计算，无 window/document 依赖（JSC 沙箱契约：进去一串字出来一串字）。\n\n// ---- Step1: player/video → title/cover/duration/pm2 ----\nfunction extract(input) {\n    var o = JSON.parse(input);\n    var api = JSON.parse(o.text);\n    if (String(api.code) !== '200') {\n        return JSON.stringify({ error: '芒果 player/video code=' + api.code + ' ' + (api.msg || '') });\n    }\n    var data = api.data || {};\n    var info = data.info || {};\n    var pm2 = (data.atc || {}).pm2;\n    if (!pm2) return JSON.stringify({ error: '无 pm2（可能 VIP 专享或地区限制）' });\n    var title = String(info.title || '').replace(/^\\s+|\\s+$/g, '');\n    return JSON.stringify({\n        title: title,\n        description: info.desc || '',\n        coverURL: info.thumb || '',\n        duration: info.duration || '',\n        pm2: pm2\n    });\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://pcweb.api.mgtv.com/player/video?tk2=wADMwADMwAzNx0Ddpx2Y8FDMzAjLz4CM9IXZ2xHMzATM98mbwxHduVWasNWZ09mbvVGZpZXPklGZ&video_id={id}&type=pch5"
+          }
+        },
+        {
+          "id": "source",
+          "script": "// 芒果TV platformsV2 插件 · Step2: getSource → 选最高码率可用流 → 拼 atcl URL\nfunction extract(input) {\n    var api = JSON.parse(JSON.parse(input).text);\n    if (String(api.code) !== '200') {\n        return JSON.stringify({ error: '芒果 getSource code=' + api.code + ' ' + (api.msg || '') });\n    }\n    var data = api.data || {};\n    var domains = data.stream_domain || [];\n    var streams = data.stream || [];\n    if (!domains.length || !streams.length) return JSON.stringify({ error: '无可用视频流' });\n    // 选 filebitrate 最高且 url 非空的流（1080P 常为 VIP 空地址，自动跳过）\n    var best = null;\n    for (var i = 0; i < streams.length; i++) {\n        var s = streams[i];\n        if (!s.url) continue;\n        var br = parseInt(s.filebitrate, 10) || 0;\n        if (!best || br > best.br) {\n            best = { url: s.url, br: br, name: s.name || s.standardName || s.barName || '' };\n        }\n    }\n    if (!best) return JSON.stringify({ error: '所有清晰度均无地址（可能 VIP 专享）' });\n    return JSON.stringify({\n        m3u8ApiURL: domains[0] + best.url,\n        quality: best.name\n    });\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://tinker.glb.mgtv.com/player/getSource?_support=10000000&tk2=wADMwADMwAzNx0Ddpx2Y8FDMzAjLz4CM9IXZ2xHMzATM98mbwxHduVWasNWZ09mbvVGZpZXPklGZ&pm2={pm2}&video_id={id}&type=pch5&auth_mode=1&cxid=&supportMse=1&src=intelmgtv&abroad=10&allowedRC=1"
+          }
+        },
+        {
+          "id": "atcl",
+          "script": "// 芒果TV platformsV2 插件 · Step3: atcl → m3u8 直链（videoURL 交下载器 HLS 分支）\nfunction extract(input) {\n    var o = JSON.parse(input);\n    var api = JSON.parse(o.text);\n    var info = (api.data && api.data.info) || api.info || '';\n    if (typeof info !== 'string' || info.indexOf('http') !== 0) {\n        return JSON.stringify({ error: '未取到 m3u8 地址' });\n    }\n    // 附带校验形态：必须是 .m3u8 直链（下载器按此识别 HLS 分支）\n    if (info.indexOf('.m3u8') === -1) {\n        return JSON.stringify({ error: '流地址不是 m3u8（结构可能已改版）' });\n    }\n    return JSON.stringify({ videoURL: info });\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{m3u8ApiURL}"
+          }
+        }
+      ],
+      "displayName": "芒果TV",
+      "httpPolicy": {
+        "refererMode": "source"
+      }
+    },
+    {
+      "id": "sohu",
+      "hosts": [
+        "tv.sohu.com",
+        "my.tv.sohu.com"
+      ],
+      "timeout": 20,
+      "fallbackToLegacy": true,
+      "steps": [
+        {
+          "id": "page",
+          "script": "// 搜狐视频 step1：页面 HTML 提取 vid（tv.sohu.com / my.tv.sohu.com SSR 页）\n// 输入: JSON 字符串 '{\"text\":页面HTML,\"url\":页面URL}'  输出: {vid}\n// 页面 URL 里不含 vid（v/xxx.html 是 base64、nXXXX.shtml 是 CMS 编号），\n// vid 只在 SSR 源码 `var vid=\"3155125\"` 里。\nfunction extract(input) {\n    var p = {};\n    try { p = JSON.parse(input); } catch (e) { p = {}; }\n    var text = String(p.text || '');\n    var url = String(p.url || '');\n\n    // 主路径：var vid=\"数字\"（yt-dlp 同款正则，宽松空白）\n    var m = text.match(/var\\s+vid\\s*=?\\s*[\"'](\\d+)[\"']/);\n    if (!m) {\n        // 候选 1：sohu JSON 块 \"vid\":\"数字\" 或 \"vid\":数字\n        m = text.match(/\"vid\"\\s*:\\s*\"?(\\d{4,})\"?/);\n    }\n    if (!m) {\n        return JSON.stringify({ error: '页面源码里没有 vid（形态可能已改版或为限流页） url=' + url.slice(0, 80) });\n    }\n    return JSON.stringify({ vid: m[1] });\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          }
+        },
+        {
+          "id": "meta",
+          "script": "// 搜狐视频 step2：videonew.do 播放元数据 → videoPlan（分片换链计划）\n// 输入: {text: videonew.do JSON, url: API地址}  输出: title/coverURL/duration/videoPlan\n// 端点说明（2026-09-11 定稿）：my.tv.sohu.com/play/videonew.do 对官方版权视频\n// （tv.sohu.com/nXXX.shtml）与用户上传视频（us/UID/VID.shtml）都返回完整分片；\n// 旧端点 hot.vrs.sohu.com/vrs_flash.action 对用户上传视频返回 data=null（status=6），\n// 只能覆盖官方片，故废弃。\n// videoPlan 协议（引擎 LinkParser+Segments.swift 消费）：\n//   { type: \"chainedSegments\", format: \"mp4\"|\"ts\",\n//     segments: [{fetchURL: <GET 后返回 JSON>, resultField: <取哪个字段当直链>}] }\n// 换链协议（allot ?prot=9&file=&new= 与字段名 url）在此声明，引擎只做通用执行。\nfunction extract(input) {\n    var p = '';\n    try { p = JSON.parse(input).text || ''; } catch (e) { p = ''; }\n    var d;\n    try { d = JSON.parse(p); }\n    catch (e) { return JSON.stringify({ error: 'videonew.do 响应不是 JSON: ' + e.message }); }\n\n    if (d.play !== 1) {\n        var st = (d.status != null) ? (' status=' + d.status) : '';\n        return JSON.stringify({ error: '接口判不可播 (play=' + d.play + st + ')' });\n    }\n    // 付费内容 fail loud：试看片段下载出来是半截废素材\n    if (Number(d.fee) > 0 || Number(d.tvfee) > 0 || d.is_member_play === 1) {\n        return JSON.stringify({ error: 'VIP/付费内容，暂不支持（fee=' + d.fee + ' tvfee=' + d.tvfee + '）' });\n    }\n\n    var data = d.data || {};\n    var allot = String(d.allot || data.allot || '');\n    if (!allot) { return JSON.stringify({ error: '响应缺 allot（换链服务器地址）' }); }\n\n    // 用户上传视频只有 mp4PlayUrl（完整 URL），官方视频是 clipsURL（相对路径）——逐片取「先到者」\n    var clips = data.clipsURL || [];\n    var mp4s = data.mp4PlayUrl || [];\n    var su = data.su || [];\n    var blocks = Number(data.totalBlocks) || 0;\n    if (!blocks || !su.length) {\n        return JSON.stringify({ error: '分片数据缺失 (totalBlocks=' + blocks\n            + ' clipsURL=' + clips.length + ' mp4PlayUrl=' + mp4s.length + ' su=' + su.length + ')' });\n    }\n\n    var segments = [];\n    for (var i = 0; i < blocks; i++) {\n        var file = clips[i] || mp4s[i];\n        if (!file || !su[i]) {\n            return JSON.stringify({ error: '第' + i + '片数据不齐 (file=' + (file ? '有' : '无') + ' su=' + (su[i] ? '有' : '无') + ')' });\n        }\n        segments.push({\n            fetchURL: 'https://' + allot + '/?prot=9&file=' + file + '&new=' + su[i] + '&prod=h5n&rb=1',\n            resultField: 'url'\n        });\n    }\n\n    var title = String(data.tvName || d.title || '').trim();\n    if (!title) { return JSON.stringify({ error: '标题缺失 (tvName 为空)' }); }\n\n    var out = {\n        title: title,\n        coverURL: String(data.coverImg || '') || undefined,\n        duration: Number(data.totalDuration) > 0 ? Number(data.totalDuration) : undefined,\n        videoPlan: { type: 'chainedSegments', format: 'mp4', segments: segments }\n    };\n    return JSON.stringify(out);\n}\n",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://my.tv.sohu.com/play/videonew.do?vid={vid}"
+          }
+        }
+      ],
+      "displayName": "搜狐视频",
+      "httpPolicy": {
+        "refererMode": "source"
+      }
+    },
+    {
+      "id": "youtube",
+      "hosts": [
+        "youtube.com",
+        "youtu.be",
+        "youtube-nocookie.com"
+      ],
+      "idPattern": "(?:(?:v=)|(?:youtu\\.be/)|(?:shorts/)|(?:embed/))([\\w-]{11})",
+      "timeout": 30,
+      "fallbackToLegacy": true,
+      "httpPolicy": {
+        "refererMode": "none"
+      },
+      "steps": [
+        {
+          "id": "player",
+          "fetch": {
+            "method": "post",
+            "urlTemplate": "https://www.youtube.com/youtubei/v1/player?prettyPrint=false",
+            "headers": {
+              "Content-Type": "application/json",
+              "User-Agent": "com.google.android.apps.youtube.vr.oculus/1.61.48 (Linux; U; Android 12; eureka-user Build/SQ3A.220605.009.A1) gzip"
+            },
+            "bodyTemplate": "{\"context\":{\"client\":{\"clientName\":\"ANDROID_VR\",\"clientVersion\":\"1.61.48\",\"deviceMake\":\"Oculus\",\"deviceModel\":\"Quest 3\",\"osName\":\"Android\",\"osVersion\":\"12\",\"androidSdkVersion\":32,\"hl\":\"en\"}},\"videoId\":\"{id}\",\"contentCheckOk\":true,\"racyCheckOk\":true}"
+          },
+          "script": "// YouTube 解析脚本（platformsV2 / fetch.method=post / innertube ANDROID client）\n// 契约：extract(input)，input = JSON.stringify({text: API响应, url: 最终URL})\n// 策略（2026-09-11 实测）：ANDROID client POST youtubei/v1/player 仍返回带 URL 的\n// progressive 流（itag 18=360p mp4 音视频合一）；web/iOS client 已被 SABR 剥离 URL。\n// 引擎无音视频合成能力，只挑 progressive（formats 数组）里的 video/mp4。\nfunction extract(input) {\n    var inp = JSON.parse(input);\n    var text = inp.text || '';\n    var out = {};\n    try {\n        var d = JSON.parse(text);\n        var ps = d.playabilityStatus || {};\n        if (ps.status && ps.status !== 'OK' && ps.status !== 'LIVE_STREAM_OFFLINE') {\n            out.error = 'youtube playability ' + ps.status + ': ' + String(ps.reason || '');\n            return JSON.stringify(out);\n        }\n        var sd = d.streamingData || {};\n        var formats = sd.formats || [];\n        var best = null, bestH = -1;\n        for (var i = 0; i < formats.length; i++) {\n            var f = formats[i];\n            var mime = String(f.mimeType || '');\n            if (mime.indexOf('video/mp4') !== 0) continue;\n            if (!f.url) continue;\n            var h = parseInt(f.height, 10) || 0;\n            if (h > bestH) { bestH = h; best = f; }\n        }\n        if (!best) {\n            out.error = 'youtube: no progressive mp4 (SABR-only?), formats=' + formats.length +\n                ' adaptive=' + (sd.adaptiveFormats || []).length;\n            return JSON.stringify(out);\n        }\n        out.videoURL = best.url;\n        var vd = d.videoDetails || {};\n        out.title = vd.title || 'YouTube 视频';\n        if (vd.lengthSeconds) out.duration = vd.lengthSeconds;\n        if (vd.author) out.author = vd.author;\n    } catch (e) {\n        out.error = 'youtube parse: ' + e.message;\n    }\n    return JSON.stringify(out);\n}\n"
+        }
+      ],
+      "idGroup": 1,
+      "displayName": "YouTube"
+    },
+    {
+      "id": "tiktok",
+      "hosts": [
+        "tiktok.com",
+        "vm.tiktok.com",
+        "vt.tiktok.com"
+      ],
+      "idPattern": "/video/(\\d+)",
+      "timeout": 30,
+      "fallbackToLegacy": true,
+      "httpPolicy": {
+        "refererMode": "source"
+      },
+      "steps": [
+        {
+          "id": "page",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          },
+          "script": "// TikTok 解析脚本（platformsV2 / fetch.method=http / SSR universal data）\n// 契约：extract(input)，input = JSON.stringify({text: 页面HTML, url: 最终URL})\n// 策略（yt-dlp 2026-09 实锤路径）：页面 SSR 的 __UNIVERSAL_DATA_FOR_REHYDRATION__\n// → __DEFAULT_SCOPE__[\"webapp.video-detail\"].itemInfo.itemStruct.video.playAddr 纯直链。\n// 注意：HK 出口会被 302 到 /hk/about（TikTok 不服务香港），marker 缺失时如实报错。\nfunction extract(input) {\n    var inp = JSON.parse(input);\n    var text = inp.text || '';\n    var out = {};\n    var m = /<script[^>]+\\bid=\"__UNIVERSAL_DATA_FOR_REHYDRATION__\"[^>]*>([\\s\\S]*?)<\\/script>/.exec(text);\n    if (!m) {\n        out.error = 'tiktok: universal-data marker not found (region redirect or verify page)';\n        return JSON.stringify(out);\n    }\n    try {\n        var d = JSON.parse(m[1]);\n        var scope = d.__DEFAULT_SCOPE__ || {};\n        var detail = scope['webapp.video-detail'] || {};\n        var item = ((detail.itemInfo || {}).itemStruct) || {};\n        var v = item.video || {};\n        var url = v.playAddr || '';\n        if (!url) {\n            out.error = 'tiktok: no playAddr' + (item.id ? '' : ' (itemStruct empty — verify/captcha page)');\n            return JSON.stringify(out);\n        }\n        out.videoURL = url;\n        out.title = item.desc || (item.author && item.author.nickname) || 'TikTok 视频';\n        if (item.author && item.author.uniqueId) out.author = item.author.uniqueId;\n        if (v.duration) out.duration = v.duration;\n    } catch (e) {\n        out.error = 'tiktok parse: ' + e.message;\n    }\n    return JSON.stringify(out);\n}\n"
+        }
+      ],
+      "displayName": "TikTok"
+    },
+    {
+      "id": "instagram",
+      "hosts": [
+        "instagram.com",
+        "instagr.am"
+      ],
+      "idPattern": "/(?:p|reel|reels|tv)/([^/?#]+)",
+      "timeout": 30,
+      "fallbackToLegacy": true,
+      "httpPolicy": {
+        "refererMode": "source"
+      },
+      "steps": [
+        {
+          "id": "page",
+          "fetch": {
+            "method": "webview",
+            "urlTemplate": "{url}"
+          },
+          "script": "(function() {\n    // Instagram 解析页面脚本（platformsV2 / fetch.method=webview）。\n    // 职责：hook XHR/fetch 拦 /api/graphql 响应，从 data.xig_polaris_media（路径不固定，深搜）\n    // 挖 video_versions（type 101 = xpv_progressive mp4 直链，实测无 Referer 可下），\n    // 经 pluginResult 桥回传。兜底：页面 <video> / og:video meta。\n    // 侦察实锤（2026-09-11）：未登录 curl 拿到的 SSR 已无帖子数据；真浏览器里页面自己\n    // POST /api/graphql（PolarisPostRootQuery），响应含 video_versions mp4 直链。\n\n    if (window.__igPluginInjected) return;\n    window.__igPluginInjected = true;\n\n    var logCount = 0;\n    function postLog(msg) {\n        if (logCount >= 80) return;\n        logCount++;\n        try { window.webkit.messageHandlers.pluginLog.postMessage(String(msg)); } catch (e) {}\n    }\n    function postResult(obj) {\n        try { window.webkit.messageHandlers.pluginResult.postMessage(JSON.stringify(obj)); } catch (e) {}\n    }\n\n    var shortId = (window.location.pathname.match(/\\/(?:p|reel|tv)\\/([^\\/?#]+)/) || [])[1] || 'null';\n    postLog('v1.4.2 url=' + window.location.pathname.slice(0, 80) + ' shortcode=' + shortId);\n\n    if (window.__igDone) return;\n    window.__igDone = false;\n    var captured = [];\n\n    // ---- 深搜：在任意嵌套对象里找 video_versions 数组，挑 width 最大的 mp4 ----\n    function findVideoVersions(node, depth) {\n        if (!node || typeof node !== 'object' || depth > 14) return null;\n        if (Object.prototype.toString.call(node) === '[object Array]') {\n            for (var i = 0; i < node.length; i++) {\n                var r = findVideoVersions(node[i], depth + 1);\n                if (r) return r;\n            }\n            return null;\n        }\n        var vv = node.video_versions;\n        if (Object.prototype.toString.call(vv) === '[object Array]' && vv.length > 0) return vv;\n        for (var k in node) {\n            if (!Object.prototype.hasOwnProperty.call(node, k)) continue;\n            var r2 = findVideoVersions(node[k], depth + 1);\n            if (r2) return r2;\n        }\n        return null;\n    }\n\n    function pickBestMp4(vv) {\n        var best = null, bestW = -1;\n        for (var i = 0; i < vv.length; i++) {\n            var v = vv[i] || {};\n            var u = String(v.url || '');\n            if (!u || u.indexOf('.mp4') === -1) continue;   // 首元素常是封面帧 jpg\n            var w = parseInt(v.width, 10) || 0;\n            if (w > bestW) { bestW = w; best = u; }\n        }\n        return best;\n    }\n\n    // 标题：xig_polaris_media.caption.text 或 title 字段（深搜第一个命中的）\n    function findCaption(node, depth) {\n        if (!node || typeof node !== 'object' || depth > 14) return '';\n        if (Object.prototype.toString.call(node) === '[object Array]') {\n            for (var i = 0; i < node.length; i++) {\n                var r = findCaption(node[i], depth + 1);\n                if (r) return r;\n            }\n            return '';\n        }\n        var cap = node.caption;\n        if (cap && typeof cap === 'object' && typeof cap.text === 'string' && cap.text) return cap.text;\n        if (typeof node.title === 'string' && node.title) return node.title;\n        for (var k in node) {\n            if (!Object.prototype.hasOwnProperty.call(node, k)) continue;\n            var r2 = findCaption(node[k], depth + 1);\n            if (r2) return r2;\n        }\n        return '';\n    }\n\n    function tryEmit(reason) {\n        if (window.__igDone) return true;\n        for (var i = 0; i < captured.length; i++) {\n            var text = captured[i];\n            var d = null;\n            try { d = JSON.parse(text); } catch (e) { continue; }\n            var vv = findVideoVersions(d, 0);\n            if (!vv) continue;\n            var mp4 = pickBestMp4(vv);\n            if (!mp4) continue;\n            var title = findCaption(d, 0) || ('Instagram ' + shortId);\n            window.__igDone = true;\n            postLog('EMIT via ' + reason + ' vv=' + vv.length);\n            postResult({ title: String(title).slice(0, 300), videoURL: mp4 });\n            return true;\n        }\n        return false;\n    }\n\n    function inspectBody(text, url) {\n        if (window.__igDone) return;\n        var u = String(url || '');\n        if (u.indexOf('/api/graphql') === -1) return;\n        captured.push(text);\n        if (captured.length <= 6) {\n            var s = String(text);\n            postLog('RESP ' + u.slice(0, 40) + ' len=' + s.length +\n                ' vv=' + (s.indexOf('video_versions') !== -1) +\n                ' pm=' + (s.indexOf('xig_polaris_media') !== -1));\n        }\n        tryEmit('xhr');\n    }\n\n    // ---- hook XHR + fetch（IG graphql 走 XHR；保险双 hook）----\n    var oo = XMLHttpRequest.prototype.open;\n    XMLHttpRequest.prototype.open = function(m, u) {\n        this.__igU = String(u);\n        return oo.apply(this, arguments);\n    };\n    var os = XMLHttpRequest.prototype.send;\n    XMLHttpRequest.prototype.send = function() {\n        var xhr = this;\n        if (xhr.__igU && xhr.__igU.indexOf('/api/graphql') !== -1) {\n            xhr.addEventListener('load', function() {\n                try { inspectBody(String(xhr.responseText), xhr.__igU); } catch (e) { postLog('xhr err ' + e.message); }\n            });\n        }\n        return os.apply(this, arguments);\n    };\n    if (window.fetch) {\n        var of = window.fetch;\n        window.fetch = function(u) {\n            var p = of.apply(this, arguments);\n            try {\n                if (String(u).indexOf('/api/graphql') !== -1) {\n                    p.then(function(r) { r.clone().text().then(function(t) { inspectBody(t, u); }).catch(function() {}); }).catch(function() {});\n                }\n            } catch (e) {}\n            return p;\n        };\n    }\n\n    // ---- 兜底1：页面已有数据（SPA 二次进入时 hook 晚了）→ 全局搜 JSON 字符串 ----\n    // ---- 兜底2：<video> 元素 / og:video meta ----\n    function domFallback() {\n        if (window.__igDone) return;\n        var vid = document.querySelector('video[src]');\n        if (vid && vid.src && vid.src.indexOf('http') === 0) {\n            var og = document.querySelector('meta[property=\"og:title\"]');\n            window.__igDone = true;\n            postLog('EMIT via dom-video');\n            postResult({ title: (og && og.content) || ('Instagram ' + shortId), videoURL: vid.src });\n            return;\n        }\n        var meta = document.querySelector('meta[property=\"og:video\"], meta[property=\"og:video:url\"]');\n        if (meta && meta.content && meta.content.indexOf('.mp4') !== -1) {\n            window.__igDone = true;\n            postLog('EMIT via og:video');\n            postResult({ title: 'Instagram ' + shortId, videoURL: meta.content });\n        }\n    }\n\n    // 多轮兜底（graphql 响应晚到 / SPA 路由慢）\n    var rounds = [1500, 3500, 6000, 9000];\n    for (var i = 0; i < rounds.length; i++) {\n        (function(ms, idx) {\n            setTimeout(function() {\n                if (window.__igDone) return;\n                tryEmit('round' + idx);\n                domFallback();\n                if (!window.__igDone && idx === rounds.length - 1) {\n                    postLog('GIVEUP captured=' + captured.length);\n                }\n            }, ms);\n        })(rounds[i], i);\n    }\n})();\n"
+        }
+      ],
+      "displayName": "Instagram"
+    },
+    {
+      "id": "ted",
+      "displayName": "TED",
+      "hosts": [
+        "ted.com"
+      ],
+      "idPattern": "talks/([a-z0-9_]+)",
+      "idGroup": 1,
+      "steps": [
+        {
+          "id": "page",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          },
+          "script": "// TED 插件: talk 页 → og 元数据 + __NEXT_DATA__ 里的 HLS master 地址。\n// TED 页 og:video:url 是 embed 网页而非视频文件，视频唯一通道是 hls.ted.com 的 HLS。\n// master 直吐 videoURL：最高码率变体挑选与音轨下载合成由引擎 HLS 层原生完成\n// （TED 是音视频分离打包，无声问题修复于 2026-09-25，见 docs/ted解析方案验证-2026-09-25.md）。\nfunction extract(input) {\n    var text = JSON.parse(input).text || '';\n    function meta(prop) {\n        var m = new RegExp('<meta[^>]*property=\"' + prop + '\"[^>]*content=\"([^\"]*)\"', 'i').exec(text)\n             || new RegExp('<meta[^>]*content=\"([^\"]*)\"[^>]*property=\"' + prop + '\"', 'i').exec(text);\n        return m ? m[1] : '';\n    }\n    function decode(s) {\n        return s.replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n                .replace(/&lt;/g, '<').replace(/&gt;/g, '>');\n    }\n    var title = decode(meta('og:title'));\n    if (!title) { return JSON.stringify({ error: 'ted: og:title 缺失（非 talk 页或已改版）' }); }\n    var hls = /\"hlsUrl\"\\s*:\\s*\"(https:\\/\\/hls\\.ted\\.com[^\"]+?\\.m3u8[^\"]*)\"/.exec(text);\n    if (!hls) { return JSON.stringify({ error: 'ted: hlsUrl 缺失（页面结构可能已改版）' }); }\n    return JSON.stringify({\n        title:       title,\n        description: decode(meta('og:description')),\n        coverURL:    decode(meta('og:image')),\n        videoURL:    hls[1].replace(/\\\\u0026/g, '&')\n    });\n}"
+        }
+      ],
+      "fallbackToLegacy": false,
+      "httpPolicy": {
+        "refererMode": "none"
+      }
+    }
+  ]
+}
