@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.6",
-  "updatedAt": "2026-09-25",
+  "version": "2.0.7",
+  "updatedAt": "2026-09-30",
   "canaryCases": [
     {
       "platform": "bilibili",
@@ -119,9 +119,33 @@
         "coverURL"
       ],
       "expectVideoURLHostSuffix": "hls.ted.com"
+    },
+    {
+      "platform": "weixin",
+      "step": "page",
+      "fixture": "<html><head><meta property=\"og:title\" content=\"canary 公众号样例标题\"/><meta property=\"og:description\" content=\"canary 样例摘要，用于离线试跑\"/><meta property=\"og:image\" content=\"https://mmbiz.qpic.cn/mmbiz_jpg/CANARY/640?wx_fmt=jpeg\"/></head><body><div class=\"rich_media_content\" id=\"js_content\"><p>第一段正文。</p><div><div><p>嵌套段落里的<strong>第二段</strong>。</p></div></div><p><img src=\"\" data-src=\"https://mmbiz.qpic.cn/mmbiz_jpg/CANARYIMG/640?wx_fmt=jpeg&amp;wxfrom=5\"/>配图</p><p>第三段收尾。</p></div><div id=\"js_tags\">公众号</div></body></html>",
+      "inputURL": "https://mp.weixin.qq.com/s/canary0000000000000000",
+      "expectTitleContains": "canary 公众号样例标题",
+      "expectFieldsNonEmpty": [
+        "body",
+        "description"
+      ],
+      "expectImageMinCount": 1
+    },
+    {
+      "platform": "weixin",
+      "step": "page",
+      "fixture": "<html><head><meta property=\"og:title\" content=\"canary 无图样例标题\"/><meta property=\"og:description\" content=\"canary 无图样例摘要\"/><meta property=\"og:image\" content=\"https://mmbiz.qpic.cn/mmbiz_jpg/COVER/640?wx_fmt=jpeg\"/></head><body><div class=\"rich_media_content\" id=\"js_content\"><p>纯文字段落一。</p><p>纯文字段落二。</p></div></body></html>",
+      "inputURL": "https://mp.weixin.qq.com/s/canaryNoImage000000",
+      "expectTitleContains": "canary 无图样例",
+      "expectFieldsNonEmpty": [
+        "body",
+        "description"
+      ],
+      "expectImageMinCount": 1
     }
   ],
-  "changelog": "抖音插件登录墙/风控早退：note 图集被下发登录墙后 detail API 不再被调用，脚本 8s 内检测登录弹窗/验证组件并主动上报 rateLimited（约 2s 内明确报错，替代 25s webview 超时）（2026-09-12）；登录墙(扫码/验证码/密码登录/登录后免费)现上报 needsLogin，引擎抛 PlatformLoginRequiredError 并提示需登录后查看，与限流区分（2026-09-12）；抖音改回分享页 HTTP（warmup ×2 拿 ttwid → 第三次请求取 SSR _ROUTER_DATA.videoInfoRes.item_list）；ttwid 是否下发有随机性（实测单次约 2/3 命中），故前置两次 warmup 提高首次成功率至实测 6/6，恢复图集与视频解析；此前 webview 步打的是主站 SPA（无 SSR、detail 接口不触发），故图集失效——该步已删除。图集: images[].url_list→imageURLs 并清空 playwm 占位视频；视频: play_addr.uri→1080p 无水印直链（2026-09-12）",
+  "changelog": "新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；纯文本结果以 textOnly=true 声明、无内容图时封面并入 imageURLs 过完整性闸门——本次热更在现有客户端即全量生效（body 字段老引擎本就映射，带图/带封面文章直接完整支持）；引擎 textOnly 放行为语义正规化，随下次常规发版兜「无封面且无图」的极端文章（2026-09-30）；新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；脚本声明 textOnly=true，引擎随之放行「无媒体但有正文」的纯文本插件结果（引擎改动需随 App 发版；老客户端有图文章已可用，无图文章会解析失败——老引擎不放行纯文本结果且本插件不降级，更新 App 后完整支持）（2026-09-30）；抖音插件登录墙/风控早退：note 图集被下发登录墙后 detail API 不再被调用，脚本 8s 内检测登录弹窗/验证组件并主动上报 rateLimited（约 2s 内明确报错，替代 25s webview 超时）（2026-09-12）；登录墙(扫码/验证码/密码登录/登录后免费)现上报 needsLogin，引擎抛 PlatformLoginRequiredError 并提示需登录后查看，与限流区分（2026-09-12）；抖音改回分享页 HTTP（warmup ×2 拿 ttwid → 第三次请求取 SSR _ROUTER_DATA.videoInfoRes.item_list）；ttwid 是否下发有随机性（实测单次约 2/3 命中），故前置两次 warmup 提高首次成功率至实测 6/6，恢复图集与视频解析；此前 webview 步打的是主站 SPA（无 SSR、detail 接口不触发），故图集失效——该步已删除。图集: images[].url_list→imageURLs 并清空 playwm 占位视频；视频: play_addr.uri→1080p 无水印直链（2026-09-12）",
   "platforms": [
     {
       "id": "bilibili",
@@ -433,6 +457,31 @@
             "urlTemplate": "{url}"
           },
           "script": "// TED 插件: talk 页 → og 元数据 + __NEXT_DATA__ 里的 HLS master 地址。\n// TED 页 og:video:url 是 embed 网页而非视频文件，视频唯一通道是 hls.ted.com 的 HLS。\n// master 直吐 videoURL：最高码率变体挑选与音轨下载合成由引擎 HLS 层原生完成\n// （TED 是音视频分离打包，无声问题修复于 2026-09-25，见 docs/ted解析方案验证-2026-09-25.md）。\nfunction extract(input) {\n    var text = JSON.parse(input).text || '';\n    function meta(prop) {\n        var m = new RegExp('<meta[^>]*property=\"' + prop + '\"[^>]*content=\"([^\"]*)\"', 'i').exec(text)\n             || new RegExp('<meta[^>]*content=\"([^\"]*)\"[^>]*property=\"' + prop + '\"', 'i').exec(text);\n        return m ? m[1] : '';\n    }\n    function decode(s) {\n        return s.replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n                .replace(/&lt;/g, '<').replace(/&gt;/g, '>');\n    }\n    var title = decode(meta('og:title'));\n    if (!title) { return JSON.stringify({ error: 'ted: og:title 缺失（非 talk 页或已改版）' }); }\n    var hls = /\"hlsUrl\"\\s*:\\s*\"(https:\\/\\/hls\\.ted\\.com[^\"]+?\\.m3u8[^\"]*)\"/.exec(text);\n    if (!hls) { return JSON.stringify({ error: 'ted: hlsUrl 缺失（页面结构可能已改版）' }); }\n    return JSON.stringify({\n        title:       title,\n        description: decode(meta('og:description')),\n        coverURL:    decode(meta('og:image')),\n        videoURL:    hls[1].replace(/\\\\u0026/g, '&')\n    });\n}"
+        }
+      ],
+      "fallbackToLegacy": false,
+      "httpPolicy": {
+        "refererMode": "none"
+      }
+    },
+    {
+      "id": "weixin",
+      "displayName": "公众号",
+      "hosts": [
+        "weixin.qq.com"
+      ],
+      "steps": [
+        {
+          "id": "page",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}",
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Safari/605.1.15",
+              "Accept-Language": "zh-CN,zh;q=0.9"
+            }
+          },
+          "script": "// 微信公众号插件：文章页（mp.weixin.qq.com）→ 标题/摘要/封面/正文纯文本/内容图。\n// 页面为服务端渲染完整 HTML（实测 2026-09-30：3.6MB 直出、无验证页、无需登录）：\n// og meta 齐全；正文容器 <div class=\"rich_media_content\" id=\"js_content\">；\n// 内容图 data-src 懒加载。图片下载按 httpPolicy refererMode=none 取图——\n// mmbiz.qpic.cn 实测无 Referer 给真图，外站 Referer 会被换成 2KB「禁止引用」占位图。\n// 纯文本结果以 textOnly=true 显式声明：新引擎据此放行无媒体结果（随下次常规发版生效）。\n// 现有客户端的兼容路径：无内容图时把封面并入 imageURLs 过完整性闸门（见下方注释），\n// 因此本次热更在老客户端即全量可用——body 字段老引擎本就映射进解析结果。\nfunction extract(input) {\n    var text = (JSON.parse(input).text || '');\n\n    // 文章页判据先立住，再区分失败形态——风控页/删除页/非文章页各有各的话术\n    if (text.indexOf('js_content') === -1) {\n        if (text.indexOf('环境异常') !== -1 || text.indexOf('操作频繁') !== -1) {\n            return JSON.stringify({ error: 'weixin: 触发风控验证页', rateLimited: true });\n        }\n        if (text.indexOf('该内容已被发布者删除') !== -1 || text.indexOf('此内容因违规无法查看') !== -1) {\n            return JSON.stringify({ error: 'weixin: 文章已被删除或因违规无法查看' });\n        }\n        return JSON.stringify({ error: 'weixin: 页面没有正文容器（非文章页或已改版）' });\n    }\n\n    function meta(prop) {\n        var m = new RegExp('<meta[^>]*property=\"' + prop + '\"[^>]*content=\"([^\"]*)\"', 'i').exec(text)\n             || new RegExp('<meta[^>]*content=\"([^\"]*)\"[^>]*property=\"' + prop + '\"', 'i').exec(text);\n        return m ? m[1] : '';\n    }\n    function decode(s) {\n        return String(s).replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n            .replace(/&lt;/g, '<').replace(/&gt;/g, '>');\n    }\n\n    var title = decode(meta('og:title')).trim();\n    if (!title) {\n        var h1 = /<h1[^>]*>([\\s\\S]*?)<\\/h1>/i.exec(text);\n        if (h1) { title = h1[1].replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim(); }\n    }\n    if (!title) { return JSON.stringify({ error: 'weixin: 标题缺失（页面已改版）' }); }\n\n    // 正文容器提取：js_content 内部是嵌套 div/section，正则数不了配对，\n    // 从锚点所在开标签的 > 之后起扫 <div / </div> 计数，深度归零即闭合\n    function extractJsContent(html) {\n        var at = html.indexOf('id=\"js_content\"');\n        if (at === -1) { at = html.indexOf(\"id='js_content'\"); }\n        if (at === -1) { return ''; }\n        var innerStart = html.indexOf('>', at) + 1;\n        if (innerStart <= 0) { return ''; }\n        var tokenRe = /<div\\b|<\\/div\\s*/gi;\n        tokenRe.lastIndex = innerStart;\n        var depth = 1, m, end = html.length;\n        while ((m = tokenRe.exec(html)) !== null) {\n            if (m[0].charAt(1) === '/') {\n                depth -= 1;\n                if (depth === 0) { end = m.index; break; }\n            } else {\n                depth += 1;\n            }\n        }\n        return html.substring(innerStart, end);\n    }\n\n    // HTML → 纯文本：块级标签收尾转空行、br 转换行，行内空白折单空格（与 Swift 侧\n    // cleanText 同一套段落语义，2026-09-28 起通用解析保留段落，这里保持一致）\n    function toText(html) {\n        var s = html\n            .replace(/<(script|style|noscript|svg)[\\s\\S]*?<\\/\\1\\s*>/gi, ' ')\n            .replace(/<br\\s*\\/?>/gi, '\\n')\n            .replace(/<\\/(?:p|div|section|blockquote|pre|h[1-6]|li|tr|td|table)>/gi, '\\n\\n')\n            .replace(/<[^>]+>/g, '');\n        s = decode(s).replace(/&nbsp;/gi, ' ')\n            .replace(/&#(\\d+);/g, function (_, n) { return String.fromCharCode(+n); });\n        var lines = s.split(/\\n/).map(function (l) { return l.replace(/[ \\t\\u00A0\\u3000]+/g, ' ').trim(); });\n        var out = [];\n        for (var i = 0; i < lines.length; i++) {\n            if (lines[i] === '') { if (out.length && out[out.length - 1] !== '') { out.push(''); } }\n            else { out.push(lines[i]); }\n        }\n        while (out.length && out[0] === '') { out.shift(); }\n        while (out.length && out[out.length - 1] === '') { out.pop(); }\n        return out.join('\\n');\n    }\n\n    var body = toText(extractJsContent(text));\n    if (!body) { return JSON.stringify({ error: 'weixin: js_content 为空（可能被折叠或已改版）' }); }\n    // 与通用解析 MAX_TEXT_LENGTH(10000) 对齐，绝大多数公众号文章（三五千字）不受影响\n    if (body.length > 10000) { body = body.substring(0, 10000); }\n\n    var out = {\n        title: title,\n        description: decode(meta('og:description')),\n        coverURL: decode(meta('og:image')),\n        body: body,\n        textOnly: true\n    };\n\n    // 内容图：只收 mmbiz CDN 的 data-src（公众号正文图全部在此 CDN），去重封顶 30\n    var imgs = [];\n    var imgRe = /<img[^>]+data-src=\"([^\"]+)\"[^>]*>/gi;\n    var im;\n    while ((im = imgRe.exec(text)) !== null && imgs.length < 30) {\n        var u = decode(im[1]);\n        if (u.indexOf('mmbiz.qpic.cn') !== -1 && imgs.indexOf(u) === -1) { imgs.push(u); }\n    }\n    if (imgs.length) { out.imageURLs = imgs; }\n    else if (out.coverURL) {\n        // 无内容图时把封面并入 imageURLs：现有客户端引擎的完整性闸门要求「至少一个媒体」，\n        // 封面兜底让纯文字文章也能过闸——本次热更在现有客户端即全量生效，不必等发版；\n        // 封面本就是文章头图，与通用解析「封面计入图片候选」的既有语义一致（Helpers.extractImages）。\n        // 引擎侧 textOnly 放行（随下次常规发版）生效后，此兜底仅剩「无封面且无图」的极端场景。\n        out.imageURLs = [out.coverURL];\n    }\n\n    return JSON.stringify(out);\n}"
         }
       ],
       "fallbackToLegacy": false,
