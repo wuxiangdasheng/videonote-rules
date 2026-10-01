@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.9",
-  "updatedAt": "2026-09-30",
+  "version": "2.1.0",
+  "updatedAt": "2026-10-01",
   "canaryCases": [
     {
       "platform": "bilibili",
@@ -119,9 +119,49 @@
         "coverURL"
       ],
       "expectVideoURLHostSuffix": "hls.ted.com"
+    },
+    {
+      "platform": "github",
+      "step": "resolve",
+      "fixture": "{\"name\": \"README.md\", \"path\": \"README.md\", \"html_url\": \"https://github.com/canary/demo/blob/main/README.md\", \"download_url\": \"https://raw.githubusercontent.com/canary/demo/main/README.md\", \"encoding\": \"base64\", \"type\": \"file\"}",
+      "inputURL": "https://api.github.com/repos/canary/demo/readme?vnsrc=https://github.com/canary/demo",
+      "expectTitleContains": "canary/demo",
+      "expectFieldsNonEmpty": [
+        "rawURL"
+      ]
+    },
+    {
+      "platform": "github",
+      "step": "resolve",
+      "fixture": "{\"name\": \"README\", \"path\": \"README\", \"download_url\": \"https://raw.githubusercontent.com/canary/demo/main/README\"}",
+      "inputURL": "https://api.github.com/repos/canary/demo/readme?vnsrc=https://github.com/canary/demo/blob/main/README",
+      "expectTitleContains": "README",
+      "expectFieldsNonEmpty": [
+        "rawURL",
+        "title"
+      ]
+    },
+    {
+      "platform": "github",
+      "step": "content",
+      "fixture": "# canary 样例\n\n这是 raw 正文内容，用于离线验证 content 步骤的 textOnly 产出。",
+      "inputURL": "https://raw.githubusercontent.com/canary/demo/main/README.md",
+      "expectFieldsNonEmpty": [
+        "body"
+      ]
+    },
+    {
+      "platform": "githubgist",
+      "step": "gist",
+      "fixture": "{\"description\": \"canary 样例要点\", \"files\": {\"demo.md\": {\"filename\": \"demo.md\", \"type\": \"text/markdown\", \"content\": \"# 你好\\nGist 正文内容。\", \"truncated\": false}}, \"html_url\": \"https://gist.github.com/canary/abcdef123456\"}",
+      "inputURL": "https://api.github.com/gists/abcdef123456",
+      "expectTitleContains": "canary 样例要点",
+      "expectFieldsNonEmpty": [
+        "body"
+      ]
     }
   ],
-  "changelog": "公众号插件正文改用 DOM textContent 抽取：离屏 webview 实测公众号正文初始 visibility:hidden、由页面 JS 渐次显示，innerText 依赖渲染态——元素已在 DOM、textContent=3704 时 innerText≈18，v2.0.8 在首个轮询拍即误判「js_content 为空」（用户看到的是引擎包装文案「脚本返回的内容不是合法 JSON」，实为脚本主动上报的 error 字段，文案误导问题记入引擎待办）；叶子块文本改读 textContent（不依赖渲染状态），<br> 经子节点遍历还原换行（2026-09-30）；公众号插件改走 webview 步骤：http 直取整页 3.5MB+ 会撞 RuleScriptRunner 的 2MB JSC 输入上限（v2.0.7 上线后实测「输入过大，已中止」）；改在离屏 WKWebView 内由页面脚本轮询 js_content（document start 注入，300ms×60 次 ≈18s 上限，插件 timeout 提至 35s），叶子块抽正文、data-src 收图、封面兜底过完整性闸门，只回传数 KB 结果绕开尺寸闸；风控/删除/非文章页 fail fast 识别不变；webview 步骤不支持离线 canary，由 LinkParserInjectionE2ETests 新增用例兜底（2026-09-30）；新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；纯文本结果以 textOnly=true 声明、无内容图时封面并入 imageURLs 过完整性闸门——本次热更在现有客户端即全量生效（body 字段老引擎本就映射，带图/带封面文章直接完整支持）；引擎 textOnly 放行为语义正规化，随下次常规发版兜「无封面且无图」的极端文章（2026-09-30）；新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；脚本声明 textOnly=true，引擎随之放行「无媒体但有正文」的纯文本插件结果（引擎改动需随 App 发版；老客户端有图文章已可用，无图文章会解析失败——老引擎不放行纯文本结果且本插件不降级，更新 App 后完整支持）（2026-09-30）；抖音插件登录墙/风控早退：note 图集被下发登录墙后 detail API 不再被调用，脚本 8s 内检测登录弹窗/验证组件并主动上报 rateLimited（约 2s 内明确报错，替代 25s webview 超时）（2026-09-12）；登录墙(扫码/验证码/密码登录/登录后免费)现上报 needsLogin，引擎抛 PlatformLoginRequiredError 并提示需登录后查看，与限流区分（2026-09-12）；抖音改回分享页 HTTP（warmup ×2 拿 ttwid → 第三次请求取 SSR _ROUTER_DATA.videoInfoRes.item_list）；ttwid 是否下发有随机性（实测单次约 2/3 命中），故前置两次 warmup 提高首次成功率至实测 6/6，恢复图集与视频解析；此前 webview 步打的是主站 SPA（无 SSR、detail 接口不触发），故图集失效——该步已删除。图集: images[].url_list→imageURLs 并清空 playwm 占位视频；视频: play_addr.uri→1080p 无水印直链（2026-09-12）",
+  "changelog": "新增 GitHub 文字解析三插件（github/githubgist/githubraw，2026-10-01）：github.com 仓库主页 → README 正文（resolve 步打 api.github.com/repos/{owner}/{repo}/readme 取 download_url，content 步取 raw.githubusercontent 正文；未认证配额 60 次/时）；blob/raw 文件链接 → resolve 步按源路径改写 raw.githubusercontent.com/{owner}/{repo}/{ref}/{path} 直链取文件文本；gist.github.com → gists API 内联 files 正文（取首个有内容文件，truncated 超大文件跳过）；raw.githubusercontent.com 直链 → 链接即正文。源链接形态经 resolve 步 URL 的 vnsrc= 查询参数透传给脚本分派（实测 GitHub API 忽略未知查询参数），tree/issues/pull/releases 等形态脚本明确报错、绝不拿 README 冒充（防快手 feeds[0] 抓错式事故）；二进制文件以 NUL 字节守卫拒绝（decodeWebText 的 isoLatin1 兜底永不失败，二进制必混入 \\u0000）；正文截断与 MAX_TEXT_LENGTH(10000) 对齐；textOnly=true 纯文字卡片语义同公众号插件；httpPolicy=none、fallbackToLegacy=false（失败走热更重试闭环，不降级产垃圾卡片）；插件顺序红线：githubgist 必须排在 github 之前——matchesHost 的 .后缀语义会让 gist.github.com 抢先命中 github.com 插件；公众号插件正文改用 DOM textContent 抽取：离屏 webview 实测公众号正文初始 visibility:hidden、由页面 JS 渐次显示，innerText 依赖渲染态——元素已在 DOM、textContent=3704 时 innerText≈18，v2.0.8 在首个轮询拍即误判「js_content 为空」（用户看到的是引擎包装文案「脚本返回的内容不是合法 JSON」，实为脚本主动上报的 error 字段，文案误导问题记入引擎待办）；叶子块文本改读 textContent（不依赖渲染状态），<br> 经子节点遍历还原换行（2026-09-30）；公众号插件改走 webview 步骤：http 直取整页 3.5MB+ 会撞 RuleScriptRunner 的 2MB JSC 输入上限（v2.0.7 上线后实测「输入过大，已中止」）；改在离屏 WKWebView 内由页面脚本轮询 js_content（document start 注入，300ms×60 次 ≈18s 上限，插件 timeout 提至 35s），叶子块抽正文、data-src 收图、封面兜底过完整性闸门，只回传数 KB 结果绕开尺寸闸；风控/删除/非文章页 fail fast 识别不变；webview 步骤不支持离线 canary，由 LinkParserInjectionE2ETests 新增用例兜底（2026-09-30）；新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；纯文本结果以 textOnly=true 声明、无内容图时封面并入 imageURLs 过完整性闸门——本次热更在现有客户端即全量生效（body 字段老引擎本就映射，带图/带封面文章直接完整支持）；引擎 textOnly 放行为语义正规化，随下次常规发版兜「无封面且无图」的极端文章（2026-09-30）；新增公众号（weixin）插件：mp.weixin.qq.com 文章页 → 标题/摘要/封面/正文纯文本/内容图（服务端渲染页单步 http GET 即可，无需 webview）；正文从 js_content 容器深度配对提取，内容图收 data-src（mmbiz CDN，httpPolicy=none：实测外站 Referer 会被换成占位图）；风控验证页（环境异常）上报 rateLimited、删除页明确报错，均不降级；脚本声明 textOnly=true，引擎随之放行「无媒体但有正文」的纯文本插件结果（引擎改动需随 App 发版；老客户端有图文章已可用，无图文章会解析失败——老引擎不放行纯文本结果且本插件不降级，更新 App 后完整支持）（2026-09-30）；抖音插件登录墙/风控早退：note 图集被下发登录墙后 detail API 不再被调用，脚本 8s 内检测登录弹窗/验证组件并主动上报 rateLimited（约 2s 内明确报错，替代 25s webview 超时）（2026-09-12）；登录墙(扫码/验证码/密码登录/登录后免费)现上报 needsLogin，引擎抛 PlatformLoginRequiredError 并提示需登录后查看，与限流区分（2026-09-12）；抖音改回分享页 HTTP（warmup ×2 拿 ttwid → 第三次请求取 SSR _ROUTER_DATA.videoInfoRes.item_list）；ttwid 是否下发有随机性（实测单次约 2/3 命中），故前置两次 warmup 提高首次成功率至实测 6/6，恢复图集与视频解析；此前 webview 步打的是主站 SPA（无 SSR、detail 接口不触发），故图集失效——该步已删除。图集: images[].url_list→imageURLs 并清空 playwm 占位视频；视频: play_addr.uri→1080p 无水印直链（2026-09-12）",
   "platforms": [
     {
       "id": "bilibili",
@@ -461,6 +501,90 @@
         "refererMode": "none"
       },
       "timeout": 35
+    },
+    {
+      "id": "githubgist",
+      "displayName": "GitHub Gist",
+      "hosts": [
+        "gist.github.com"
+      ],
+      "idPattern": "gist\\.github\\.com/(?:[^/?#]+/)?([0-9a-fA-F]{6,40})",
+      "idGroup": 1,
+      "steps": [
+        {
+          "id": "gist",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://api.github.com/gists/{id}",
+            "headers": {
+              "Accept": "application/vnd.github+json"
+            }
+          },
+          "script": "// GitHub Gist 插件：gists API 响应的 files 是「文件名为键」的内联字典，正文无需二次取 raw。\n// 取第一个有内容的文件；超大文件会被 GitHub 标记 truncated（content 可能缺失），跳过换下一个。\n// 标题优先用 description（常空则退文件名），换行压平、限 120 字。\nfunction extract(input) {\n    var d = JSON.parse(input);\n    function J(o) { return JSON.stringify(o); }\n    var api;\n    try { api = JSON.parse(d.text || ''); } catch (e) { return J({ error: 'gist: 接口响应不是 JSON' }); }\n    var files = api.files || {};\n    var first = null, firstKey = '', count = 0;\n    for (var k in files) {\n        if (!Object.prototype.hasOwnProperty.call(files, k)) { continue; }\n        count += 1;\n        var f = files[k] || {};\n        if (first === null && (f.content || '') !== '') { first = f; firstKey = k; }\n    }\n    if (!first) { return J({ error: count ? 'gist: 文件均无内联内容（可能超大被截断）' : 'gist: 响应中没有文件' }); }\n    var body = first.content;\n    if (body.length > 10000) { body = body.substring(0, 10000); }   // 与 MAX_TEXT_LENGTH 对齐\n    var desc = (api.description || '').replace(/[\\r\\n]+/g, ' ').replace(/^\\s+|\\s+$/g, '');\n    if (desc.length > 120) { desc = desc.substring(0, 120); }\n    return J({\n        title: desc ? desc : (firstKey + ' · gist'),\n        description: firstKey + ' · GitHub Gist',\n        body: body,\n        textOnly: true\n    });\n}"
+        }
+      ],
+      "timeout": 20,
+      "fallbackToLegacy": false,
+      "httpPolicy": {
+        "refererMode": "none"
+      }
+    },
+    {
+      "id": "github",
+      "displayName": "GitHub",
+      "hosts": [
+        "github.com"
+      ],
+      "idPattern": "github\\.com/([^/?#]+/[^/?#]+)",
+      "idGroup": 1,
+      "steps": [
+        {
+          "id": "resolve",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "https://api.github.com/repos/{id}/readme?vnsrc={url}",
+            "headers": {
+              "Accept": "application/vnd.github+json"
+            }
+          },
+          "script": "// GitHub 插件 · resolve 步骤：一个脚本按源链接形态分派（引擎步骤链不支持分支）。\n// github.com 三种用户内容形态走同一条两步链路：\n//   仓库主页 owner/repo            → readme API 取 download_url，下一步取 README 正文\n//   文件 blob/raw owner/repo/blob/… → 按源路径改写成 raw.githubusercontent.com 直链\n//   其他（tree/issues/pull/…）      → 主动报错，绝不拿 README 冒充（快手 feeds[0] 教训）\n// 源链接形态让脚本看见的方式：resolve 步骤模板把源链接原样缀在 vnsrc= 查询参数里\n// （实测 GitHub API 忽略未知查询参数，2026-10-01），脚本从 input.url 解回来。\nfunction extract(input) {\n    var d = JSON.parse(input);\n    var url = d.url || '';\n    function J(o) { return JSON.stringify(o); }\n    function err(m) { return J({ error: m }); }\n    function segDec(s) { try { return decodeURIComponent(s); } catch (e) { return s; } }\n\n    var srcM = /vnsrc=(.+)$/.exec(url);\n    var src = srcM ? srcM[1] : '';\n    var pm = /github\\.com\\/([^\\/?#]+)\\/([^\\/?#]+)(?:\\/([^\\/?#]+)((?:\\/[^\\/?#]*)*))?/.exec(src);\n    if (!pm) { return err('github: 无法从链接识别 owner/repo（' + src.slice(0, 80) + '）'); }\n    var owner = pm[1], repo = pm[2], third = pm[3] || '';\n    var rest = pm[4] || '';   // 形如 \"/master/README.md\"，保留前导 /\n\n    if (third === 'blob' || third === 'raw') {\n        var parts = rest.split('/');          // ['', ref, ...path]\n        var ref = parts[1] || '';\n        var path = parts.slice(2).join('/');\n        if (!ref || !path) { return err('github: 文件链接缺 ref 或路径（' + src.slice(0, 80) + '）'); }\n        var name = segDec(path.split('/').pop() || '');\n        return J({\n            rawURL: 'https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + ref + '/' + path,\n            title: (name || 'file') + ' · ' + owner + '/' + repo,\n            description: 'GitHub 文件 · ' + owner + '/' + repo,\n            githubKind: 'file'\n        });\n    }\n    if (third === 'tree' || third === 'issues' || third === 'pull' || third === 'releases'\n        || third === 'commit' || third === 'discussions' || third === 'wiki' || third === 'milestones') {\n        return err('github: 暂不支持该 GitHub 页面（' + third + '）——文字解析现支持仓库主页与文件链接');\n    }\n    if (third !== '') { return err('github: 暂不支持该 GitHub 链接形态——现支持仓库主页与文件链接'); }\n\n    // 仓库主页：readme API 响应 → download_url（raw 形态，正文由下一步取）\n    var api;\n    try { api = JSON.parse(d.text || ''); } catch (e) { return err('github: readme 接口响应不是 JSON'); }\n    var du = api.download_url || '';\n    if (!du) { return err('github: 仓库没有可读的 README（download_url 缺失）'); }\n    return J({\n        rawURL: du,\n        title: owner + '/' + repo,\n        description: 'GitHub 仓库 README（' + (api.name || 'README') + '）',\n        githubKind: 'repo'\n    });\n}"
+        },
+        {
+          "id": "content",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{rawURL}"
+          },
+          "script": "// GitHub 插件 · content 步骤：raw 文本 → 正文（textOnly 纯文字卡片，语义同公众号插件）。\n// NUL 字节守卫：二进制文件经 decodeWebText 的 isoLatin1 兜底解码必然混入 \\u0000\n// （该兜底永不失败），借此把图片/压缩包挡在「文字卡片」之外，宁可失败不产垃圾。\nfunction extract(input) {\n    var d = JSON.parse(input);\n    var text = d.text || '';\n    if (!text) { return JSON.stringify({ error: 'github: 文件内容为空' }); }\n    if (text.indexOf('\\u0000') !== -1) { return JSON.stringify({ error: 'github: 该文件是二进制内容，文字解析仅支持文本' }); }\n    if (text.length > 10000) { text = text.substring(0, 10000); }   // 与 MAX_TEXT_LENGTH 对齐\n    return JSON.stringify({ body: text, textOnly: true });\n}"
+        }
+      ],
+      "timeout": 25,
+      "fallbackToLegacy": false,
+      "httpPolicy": {
+        "refererMode": "none"
+      }
+    },
+    {
+      "id": "githubraw",
+      "displayName": "GitHub Raw",
+      "hosts": [
+        "raw.githubusercontent.com"
+      ],
+      "steps": [
+        {
+          "id": "raw",
+          "fetch": {
+            "method": "http",
+            "urlTemplate": "{url}"
+          },
+          "script": "// GitHub raw 直链插件：链接本身即正文（text/plain），标题取路径末段。\n// NUL 字节守卫同 github 插件 content 步骤（二进制拒绝，不产垃圾文字卡片）。\nfunction extract(input) {\n    var d = JSON.parse(input);\n    var text = d.text || '';\n    if (!text) { return JSON.stringify({ error: 'github-raw: 内容为空' }); }\n    if (text.indexOf('\\u0000') !== -1) { return JSON.stringify({ error: 'github-raw: 二进制内容不支持文字解析' }); }\n    var path = (d.url || '').replace(/^https?:\\/\\/[^\\/]+\\//, '');\n    var name = path.split('/').pop() || '';\n    try { name = decodeURIComponent(name); } catch (e) { }\n    if (text.length > 10000) { text = text.substring(0, 10000); }   // 与 MAX_TEXT_LENGTH 对齐\n    return JSON.stringify({\n        title: name || 'raw 文件',\n        description: 'GitHub raw 文件 · ' + path,\n        body: text,\n        textOnly: true\n    });\n}"
+        }
+      ],
+      "timeout": 20,
+      "fallbackToLegacy": false,
+      "httpPolicy": {
+        "refererMode": "none"
+      }
     }
   ]
 }
