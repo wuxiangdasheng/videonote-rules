@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "updatedAt": "2026-10-05",
   "canaryCases": [
     {
@@ -159,7 +159,7 @@
       "expectImageMinCount": 6
     }
   ],
-  "changelog": "修复微博 warmup 脚本缺 JSON.parse(input)（input 是 JSON 字符串，直接取字段得到 undefined，访客链第一步即断）；脚本所有返回路径统一 JSON.stringify。",
+  "changelog": "新增微博站点支持。",
 
   "platforms": [
     {
